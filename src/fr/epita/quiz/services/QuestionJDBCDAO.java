@@ -45,6 +45,7 @@ public class QuestionJDBCDAO {
 		String user = conf.getConfigurationValue("jdbc.user");
 		String password = conf.getConfigurationValue("jdbc.password");
 		Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
+		Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
 		return connection;
 	}
 
