@@ -16,7 +16,7 @@ public class XMLDAOTest {
 
 	
 	public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException, TransformerException {
-		//read();
+		read();
 		
 		
 //		create();
@@ -30,6 +30,7 @@ public class XMLDAOTest {
 		for (Question question : listQuestions) {
 			System.out.println("Question : " + question.getQuestion());
 			System.out.println("Difficulty : " + question.getDifficulty());
+			System.out.println("Topics : " + question.getTopics().toString());
 		}
 	}
 
