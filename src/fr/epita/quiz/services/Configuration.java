@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import fr.epita.logger.Logger;
+
 public class Configuration {
 
 	private Properties properties;
@@ -14,14 +16,11 @@ public class Configuration {
 
 	private Configuration() {
 		this.properties = new Properties();
-		//TODO make the test.properties variable (use a system variable?)
-		String confLocation = "app.properties";
-//		String confLocation = System.getProperty("conf.location");
-		//TODO design a fallback if the system variable is not set
+		String confLocation = System.getProperty("conf.location");
 		try (InputStream is = new FileInputStream(new File(confLocation))) {
 			properties.load(is);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.logMessage("Error reading configuration file");
 		}
 
 	}

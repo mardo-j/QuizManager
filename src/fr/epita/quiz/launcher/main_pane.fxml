@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="511.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.epita.quiz.launcher.LoginPaneController">
+   <children>
+      <TabPane fx:id="mainTabPane" prefHeight="511.0" prefWidth="480.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="freeTestTabBtn" text="Free Test">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="586.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="22.0" text="Your Name">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                        <Label layoutX="14.0" layoutY="116.0" text="Topics">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                        <Label layoutX="14.0" layoutY="224.0" text="Difficulty">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                        <TextField fx:id="freeName" layoutX="150.0" layoutY="27.0" />
+                        <Slider fx:id="diffSlider" blockIncrement="1.0" layoutX="150.0" layoutY="235.0" majorTickUnit="2.0" max="3.0" min="1.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" value="1.0" />
+                        <ScrollPane layoutX="151.0" layoutY="81.0" prefHeight="134.0" prefWidth="151.0">
+                           <content>
+                              <Pane fx:id="topicsPane" prefWidth="140.0" />
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="startFreeTest" layoutX="177.0" layoutY="343.0" mnemonicParsing="false" onAction="#startFreeTest" prefHeight="59.0" prefWidth="127.0" text="Start">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="studentTabPane" text="Student">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TitledPane fx:id="quizTitledPane" expanded="false" prefHeight="483.0" prefWidth="480.0" text="Quiz Name">
+                          <content>
+                            <AnchorPane fx:id="quizContentPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane prefHeight="109.0" prefWidth="480.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="222.0" prefWidth="469.0">
+                                             <children>
+                                                <Label fx:id="quizQuestionLabel" alignment="TOP_LEFT" prefHeight="219.0" prefWidth="456.0" text="Text Question herText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereeText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question hereText Question here" wrapText="true" />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                    <ImageView fx:id="quizImageViewLabel" fitHeight="236.0" fitWidth="480.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ScrollPane layoutY="109.0" prefHeight="112.0" prefWidth="480.0">
+                                      <content>
+                                        <AnchorPane fx:id="quizAnswerPane" minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="468.0">
+                                             <children>
+                                                <TextArea fx:id="quizAnswerTextArea" layoutY="-2.0" prefHeight="113.0" prefWidth="468.0" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                    <Button fx:id="nextQuestionBtn" layoutX="412.0" layoutY="418.0" mnemonicParsing="false" onAction="#nextQuestionBtn" text="Next" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <Pane fx:id="studentLoginPane" prefHeight="482.0" prefWidth="480.0">
+                           <children>
+                              <Label layoutX="150.0" layoutY="131.0" text="Quiz/Class Name">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="quizName" layoutX="91.0" layoutY="216.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                              <Button layoutX="199.0" layoutY="339.0" mnemonicParsing="false" onAction="#startQuiz" text="Start">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="professorTabBtn" text="Professor">
+               <content>
+                  <AnchorPane fx:id="profLoginPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane fx:id="loginPane" prefHeight="483.0" prefWidth="480.0" visible="false">
+                           <children>
+                              <Label fx:id="usernameLabel" layoutX="21.0" layoutY="108.0" text="Username">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="passwordLabel" layoutX="25.0" layoutY="233.0" text="Password">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usernameField" layoutX="167.0" layoutY="100.0">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </TextField>
+                              <Pane fx:id="passwordPane" layoutX="166.0" layoutY="222.0" prefHeight="58.0" prefWidth="300.0" />
+                              <Button fx:id="buttonLogin" layoutX="195.0" layoutY="341.0" mnemonicParsing="false" onAction="#loginProfessor" text="Login">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <TabPane fx:id="professorMainPane" prefHeight="483.0" prefWidth="480.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab fx:id="createQuestionTab" text="Create Question">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="14.0" text="Question Label">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="15.0" layoutY="179.0" text="Topics">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="15.0" layoutY="235.0" text="Difficulty">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TextArea fx:id="newQuestionArea" layoutX="15.0" layoutY="49.0" prefHeight="116.0" prefWidth="451.0" text="newCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtn" wrapText="true" />
+                                          <ScrollPane layoutX="240.0" layoutY="336.0" prefHeight="104.0" prefWidth="223.0" visible="false">
+                                            <content>
+                                              <AnchorPane fx:id="newChoicesPane" minWidth="220.0" prefWidth="210.0" />
+                                            </content>
+                                          </ScrollPane>
+                                          <TextField fx:id="newTopicsField" layoutX="118.0" layoutY="171.0" prefHeight="51.0" prefWidth="348.0">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </TextField>
+                                          <Slider fx:id="newDifficultySlider" blockIncrement="1.0" layoutX="118.0" layoutY="240.0" majorTickUnit="2.0" max="3.0" min="1.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                                          <RadioButton fx:id="newSimpleAnswerRB" layoutX="19.0" layoutY="284.0" mnemonicParsing="false" onAction="#simpleAnswerBtn" selected="true" text="Simple Answer">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </RadioButton>
+                                          <RadioButton fx:id="newMCQRB" layoutX="241.0" layoutY="284.0" mnemonicParsing="false" onAction="#mCQBtn" text="MCQ">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </RadioButton>
+                                          <Button fx:id="newAddChoiceBtn" layoutX="355.0" layoutY="289.0" mnemonicParsing="false" onAction="#newAddChoice" text="+ Choice" visible="false" />
+                                          <Button fx:id="newCreateBtn" layoutX="394.0" layoutY="17.0" mnemonicParsing="false" onAction="#newCreateBtn" text="Create">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="newSelectImageBtn" layoutX="279.0" layoutY="227.0" mnemonicParsing="false" onAction="#newSelectImage" text="Select Image">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Button>
+                                          <ImageView fx:id="newImageLabel" fitHeight="99.0" fitWidth="208.0" layoutX="19.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button fx:id="createCloseImageBtn" layoutX="23.0" layoutY="336.0" mnemonicParsing="false" onAction="#createCloseImageBtn" text="X" visible="false" />
+                                          <Label fx:id="newQuestionId" layoutX="203.0" layoutY="23.0" text="Label" visible="false" />
+                                          <Label fx:id="newImagePathLabel" layoutX="394.0" layoutY="293.0" visible="false" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab onSelectionChanged="#viewQuestionsTab" text="View Questions">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ScrollPane layoutY="42.0" prefHeight="412.0" prefWidth="480.0">
+                                            <content>
+                                              <AnchorPane fx:id="viewQuestionsScrollPane" />
+                                            </content>
+                                          </ScrollPane>
+                                          <Button layoutX="65.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewEditBtn" text="Edit" />
+                                          <Button layoutX="102.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewDeleteBtn" text="Delete" />
+                                          <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewCreateBtn" text="Create" />
+                                          <Button layoutX="420.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewSearchBtn" text="Search" />
+                                          <Label layoutX="235.0" layoutY="12.0" text="Search" />
+                                          <TextField fx:id="viewSearchTextField" layoutX="271.0" layoutY="8.0" onKeyReleased="#viewSearchBtn" />
+                                          <ToggleButton fx:id="newQuestionTitleBtn" layoutX="176.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewSearchBtn" text="Title" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab onSelectionChanged="#createQuizTab" text="Create Quiz">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="8.0" layoutY="14.0" text="Quiz Name">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <ScrollPane layoutY="67.0" prefHeight="387.0" prefWidth="480.0">
+                                            <content>
+                                              <AnchorPane fx:id="createQuizQuestionsPane" minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="479.0" />
+                                            </content>
+                                          </ScrollPane>
+                                          <TextField fx:id="newQuizNameTextField" layoutX="127.0" layoutY="6.0">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </TextField>
+                                          <ToggleButton fx:id="newQuizTitleBtn" layoutX="431.0" layoutY="19.0" mnemonicParsing="false" onAction="#createQuizTab" text="Title" />
+                                          <Button fx:id="newCreateQuizBtn" layoutX="368.0" layoutY="19.0" mnemonicParsing="false" onAction="#newCreateQuizBtn" text="Create" />
+                                          <Label fx:id="updateQuizIdLabel" layoutX="437.0" layoutY="49.0" text="Label" visible="false" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab onSelectionChanged="#viewQuizTab" text="View Quiz">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ScrollPane layoutY="42.0" prefHeight="412.0" prefWidth="480.0">
+                                            <content>
+                                              <AnchorPane fx:id="viewQuizScrollPane" />
+                                            </content>
+                                          </ScrollPane>
+                                          <Button layoutX="65.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewQuizEditBtn" text="Edit" />
+                                          <Button layoutX="102.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewQuizDeleteBtn" text="Delete" />
+                                          <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewQuizCreateBtn" text="Create" />
+                                          <Button layoutX="420.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewQuizSearchBtn" text="Search" />
+                                          <Label layoutX="235.0" layoutY="12.0" text="Search" />
+                                          <TextField fx:id="viewQuizSearchTextField" layoutX="271.0" layoutY="8.0" onKeyReleased="#viewQuizSearchBtn" />
+                                          <ToggleButton fx:id="viewQuizTitleBtn" layoutX="176.0" layoutY="8.0" mnemonicParsing="false" onAction="#viewQuizSearchBtn" text="Title" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="View Users">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                              <Tab onSelectionChanged="#logoutProfessor" text="Logout">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
