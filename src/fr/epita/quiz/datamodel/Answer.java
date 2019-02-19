@@ -1,12 +1,20 @@
 package fr.epita.quiz.datamodel;
-
+/**
+ * Answer class with getters and setters for private variables
+ * @author Mardo.Lucas
+ *
+ */
 public class Answer {
 
 	private String text;
 	private int questionId;
 	private int id;
 	private String student;
-	
+	/**
+	 * Answer class Constructor
+	 * 
+	 * @param text User's answer
+	 */
 	public Answer(String text) {
 		this.text=text;
 	}
@@ -35,10 +43,14 @@ public class Answer {
 	public void setStudent(String student) {
 		this.student = student;
 	}
-
+	/**
+	 * Answer toString method
+	 */
 	@Override
 	public String toString() {
-		return "Answer [text=" + text + ", question_id=" + questionId + "]";
+		return "Answer [text=" + text + ", questionId=" + questionId + ", student=" + student + "]";
 	}
+
+	
 
 }

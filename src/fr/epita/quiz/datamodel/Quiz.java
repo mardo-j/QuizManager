@@ -1,7 +1,11 @@
 package fr.epita.quiz.datamodel;
 
 import java.util.List;
-
+/**
+ * Quiz class with getters and setters for private variables
+ * @author Mardo.Lucas
+ *
+ */
 
 public class Quiz {
 
@@ -39,7 +43,9 @@ public class Quiz {
 		this.questions = questions;
 	}
 
-
+	/**
+	 * Quiz toString method
+	 */
 	@Override
 	public String toString() {
 		return "Quiz [title=" + title + ", id=" + id + ", questions=" + questions.toString() + "]";

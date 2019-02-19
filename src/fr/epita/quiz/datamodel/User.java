@@ -1,6 +1,10 @@
 package fr.epita.quiz.datamodel;
 
-
+/**
+ * User class with getters and setters for private variables
+ * @author Mardo.Lucas
+ *
+ */
 public class User {
 
 
@@ -8,15 +12,10 @@ public class User {
 	private int admin;
 	
 	private String name; 
-	public User() {
-		
-	}
+	
+	
 	public User(String name) {
 		this.name=name;
-	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + "]";
 	}
 	
 	public String getName() {
@@ -42,6 +41,8 @@ public class User {
 	public double getTotalgrade() {
 		return 0;
 	}
+	public void addToGrade(double result) {
+	}
 	public void incrementValidAnswers() {
 	}
 	public void incrementQuestionCounter() {
@@ -50,13 +51,30 @@ public class User {
 	}
 	public void incrementTotalAnswers() {
 	}
-
+	public void incrementValidChoice() {
+	}
+	public void incrementUserChoice() {
+	}
+	public void clearChoices() {
+	}
+	public boolean getChoicesValidity() {
+		return false;
+	}
 	public int getQuestionCounter() {
 		return 0;
 	}
+	
 
 	public String getFinalScore() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	/**
+	 * User toString method
+	 */
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + "]";
+	}
+
+	
 }

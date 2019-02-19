@@ -2,7 +2,11 @@ package fr.epita.quiz.datamodel;
 
 import java.util.Collections;
 import java.util.List;
-
+/**
+ * Question class with getters and setters for private variables
+ * @author Mardo.Lucas
+ *
+ */
 public class Question {
 
 	private int id;
@@ -13,12 +17,11 @@ public class Question {
 	private Integer mcq;
 	private String image;
 	
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", question=" + label + ", topics=" + topics + ", difficulty=" + difficulty
-				+ ", mcq=" + mcq + ", image=" + image + "]";
-	}
 
+	/**
+	 * Question class with no parameters will be constructed as empty question
+	 * It serves for search and new questions before initializing them
+	 */
 	public Question() {
 		this.id=0;
 		this.label = "";
@@ -26,7 +29,13 @@ public class Question {
 		this.difficulty = 1;
 		this.mcq = 0;
 	}
-	
+	/**
+	 * Question constructor
+	 * @param question
+	 * @param topics
+	 * @param difficulty
+	 * @param mcq
+	 */
 	public Question(String question, List<String> topics, Integer difficulty, int mcq) {
 		this.label = question;
 		this.topics = topics;
@@ -74,5 +83,15 @@ public class Question {
 	}
 	public String getImage() {
 		return this.image;
+	}
+	public void setChoices(List<MCQChoice> choices) {
+	}
+	/**
+	 * Question toString method
+	 */
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", question=" + label + ", topics=" + topics + ", difficulty=" + difficulty
+				+ ", mcq=" + mcq + ", image=" + image + "]";
 	}
 }

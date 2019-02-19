@@ -2,6 +2,11 @@ package fr.epita.quiz.datamodel;
 
 import java.util.List;
 
+/**
+ * MCQAnswer class with getters and setters for private variables
+ * @author Mardo.Lucas
+ *
+ */
 public class MCQAnswer {
 	
 	private List<MCQChoice> choices;
@@ -9,7 +14,10 @@ public class MCQAnswer {
 	private String student;
 	private boolean valid;
 	
-	
+	/**
+	 * MCQAnswer constructor
+	 * @param choices User's list of choices he answered
+	 */
 	public MCQAnswer(List<MCQChoice> choices) {
 		this.choices=choices;
 	}
@@ -38,7 +46,9 @@ public class MCQAnswer {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
-
+	/**
+	 * MCQAnswer toString method
+	 */
 	@Override
 	public String toString() {
 		return "MCQAnswer [choices=" + choices + ", questionId=" + questionId + ", student=" + student + "]";

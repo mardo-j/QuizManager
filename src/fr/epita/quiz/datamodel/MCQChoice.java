@@ -1,12 +1,20 @@
 package fr.epita.quiz.datamodel;
-
+/**
+ * MCQChoice class with getters and setters for private variables
+ * @author Mardo.Lucas
+ *
+ */
 public class MCQChoice {
 
 	String choice;
 	boolean valid;
 	int id;
 	
-
+/**
+ * MCQChoice constructor
+ * @param choice
+ * @param valid
+ */
 	public MCQChoice(String choice,boolean valid) {
 		this.choice=choice;
 		this.valid=valid;
@@ -30,7 +38,9 @@ public class MCQChoice {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
-
+	/**
+	 * MCQChoice toString method
+	 */
 	@Override
 	public String toString() {
 		return "MCQChoice [choice=" + choice + ", valid=" + valid + "]";
