@@ -1,20 +1,15 @@
 package fr.epita.quiz.launcher;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 
 import fr.epita.logger.Logger;
 import fr.epita.quiz.datamodel.Answer;
@@ -57,6 +52,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 public class LoginPaneController{
+	private static final String CREATE = "Create";
+	private static final String ERROR = "ERROR";
+	private static final String UPDATE="Update";
 	@FXML private Pane topicsPane;
 	@FXML private Button startFreeTest;
 	@FXML private Slider diffSlider;
@@ -114,7 +112,7 @@ public class LoginPaneController{
 	private List<CheckBox> quizBox=new ArrayList<>();
 	private List<Question> questions;
 	private ListView<Quiz> quizList;
-	private String update="Update";
+	private ListView<String> quizListString;
 	private Quiz currentQuiz;
 	private User currentStudent;
 	private Question currentQuestion;
@@ -140,7 +138,7 @@ public class LoginPaneController{
 			QuizJDBCDAO qdao = new QuizJDBCDAO();
 			Quiz q1 = new Quiz(newQuizNameTextField.getText(), selectedQuestions);
 			q1.setId(updateQuizIdInteger);
-			if(newCreateQuizBtn.getText().equals("Create")) {
+			if(newCreateQuizBtn.getText().equals(CREATE)) {
 				qdao.create(q1);
 			}else {
 				qdao.update(q1);
@@ -151,7 +149,7 @@ public class LoginPaneController{
 	protected void viewQuizCreateBtn() {
 		createQuizTab();
 		newQuizNameTextField.setText("");
-		newCreateQuizBtn.setText("Create");
+		newCreateQuizBtn.setText(CREATE);
 		professorMainPane.getSelectionModel().select(2);
 	}
 	@FXML
@@ -182,7 +180,13 @@ public class LoginPaneController{
 	@FXML
 	protected void viewQuizEditBtn(){
 
-		Quiz quiz=quizList.getSelectionModel().getSelectedItem();
+//		Quiz quiz=quizList.getSelectionModel().getSelectedItem();
+		Quiz quiz;
+		if(newQuizTitleBtn.isSelected()) {
+			quiz=quizList.getItems().get(quizListString.getSelectionModel().getSelectedIndex());
+		}else {
+			quiz=quizList.getSelectionModel().getSelectedItem();
+		}
 		QuestionJDBCDAO dao = new QuestionJDBCDAO();
 		questions = dao.search(new Question());
 		
@@ -204,7 +208,7 @@ public class LoginPaneController{
 			}
 		}
 		newQuizNameTextField.setText(quiz.getTitle());
-		newCreateQuizBtn.setText(update);
+		newCreateQuizBtn.setText(UPDATE);
 		updateQuizIdInteger=quiz.getId();
 		ListView<CheckBox> checkBoxList = new ListView<>(FXCollections.observableArrayList(quizBox));
 		checkBoxList.setPrefHeight(quizBox.size() * (double)24 + 24);
@@ -220,7 +224,7 @@ public class LoginPaneController{
 		if (result.isPresent()&&result.get() == ButtonType.OK){
 			QuizJDBCDAO quidao = new QuizJDBCDAO();
 			quidao.delete(quiz);
-			alertInfo(AlertType.INFORMATION,"Quiz Deleted","Quiz "+quiz.getTitle()+" is deleted successfully");
+			alertInfo(AlertType.INFORMATION,getQuizName("Deleted"),getQuizName(quiz.getTitle())+" is deleted successfully");
 			quizList.getItems().remove(quizList.getSelectionModel().getSelectedIndex());
 		} else {
 			alertInfo(AlertType.INFORMATION, "Thanks there is confirmation", "I knew you did it unintentionally");
@@ -259,11 +263,11 @@ public class LoginPaneController{
 			for(Quiz quiz : quizz) {
 				quizString.add(quiz.getTitle());
 			}
-			ListView<String> quizList = new ListView<>(FXCollections.observableArrayList(quizString));
-			quizList.setPrefHeight(quizString.size() * (double)24 + 24);
-			quizList.setPrefWidth((double)440);
+			quizListString = new ListView<>(FXCollections.observableArrayList(quizString));
+			quizListString.setPrefHeight(quizString.size() * (double)24 + 24);
+			quizListString.setPrefWidth((double)440);
 			viewQuizScrollPane.getChildren().clear();
-			viewQuizScrollPane.getChildren().add(quizList);
+			viewQuizScrollPane.getChildren().add(quizListString);
 			
 		}else {
 			quizList.setPrefHeight(quizz.size() * (double)24 + 24);
@@ -276,16 +280,12 @@ public class LoginPaneController{
 	@FXML
 	protected void viewEditBtn(){
 		clearCreateFields();
-		System.out.println(questions.toString());
-		System.out.println(questionsList.getSelectionModel().getSelectedIndex());
 		Question question;
 		if(newQuestionTitleBtn.isSelected()) {
 			question=questions.get(questionsStringList.getSelectionModel().getSelectedIndex());
 		}else {
-			System.out.println(questions.toString());
 			question=questions.get(questionsList.getSelectionModel().getSelectedIndex());
 		}
-		System.out.println(question);
 		updateQuestionIdInteger=question.getId();
 		newQuestionArea.setText(question.getQuestion());
 		newTopicsField.setText(question.getTopics().toString().substring(1, question.getTopics().toString().length()-1));
@@ -298,9 +298,7 @@ public class LoginPaneController{
 			for(MCQChoice choice : question.getChoices()) {
 				final CheckBox checkBox = new CheckBox(choice.getChoice());
 				checkBox.setSelected(choice.isValid());
-				checkBox.selectedProperty().addListener( (observable, oldValue, newValue) ->{
-				    	promptToAddNewChoice(checkBox);
-				});
+				checkBox.selectedProperty().addListener( (observable, oldValue, newValue) -> promptToAddNewChoice(checkBox));
 				newChoices.add(checkBox);
 			}
 			newChoice = new ListView<>(FXCollections.observableArrayList(newChoices));
@@ -319,7 +317,7 @@ public class LoginPaneController{
 				Logger.logMessage("Error setting image");
 			}
 		}
-		newCreateBtn.setText(update);
+		newCreateBtn.setText(UPDATE);
 		professorMainPane.getSelectionModel().select(0);
 	}
 
@@ -351,14 +349,19 @@ public class LoginPaneController{
 		newChoicesPane.getChildren().clear();
 		newImageLabel.setImage(null);
 		newImagePathLabel.setText("");
-		newCreateBtn.setText("Create");
+		newCreateBtn.setText(CREATE);
 		newAddChoiceBtn.setVisible(false);
 		newChoicesPane.getParent().getParent().getParent().setVisible(false);
 		createCloseImageBtn.setVisible(false);
 	}
 	@FXML
 	protected void viewDeleteBtn(){
-		Question question = questionsList.getSelectionModel().getSelectedItem();
+		Question question;
+		if(newQuestionTitleBtn.isSelected()) {
+			question=questions.get(questionsStringList.getSelectionModel().getSelectedIndex());
+		}else {
+			question=questions.get(questionsList.getSelectionModel().getSelectedIndex());
+		}
 		Optional<ButtonType> result = confirmDialog("Are you sure you want to delete the Quiz: "+question.getQuestion());
 		if (result.isPresent()&&result.get() == ButtonType.OK){
 			QuestionJDBCDAO dao = new QuestionJDBCDAO();
@@ -368,7 +371,6 @@ public class LoginPaneController{
 		} else {
 			alertInfo(AlertType.INFORMATION, "Thanks there is confirmation", "I knew you did it unintentionally");
 		}
-//		questionsList.getItems().remove(questionsList.getSelectionModel().getSelectedIndex());
 	}
 	@FXML
 	protected void viewSearchBtn(){
@@ -456,7 +458,7 @@ public class LoginPaneController{
 		if(!newImagePathLabel.getText().isEmpty())
 			question.setImage(newImagePathLabel.getText());
 		QuestionJDBCDAO dao = new QuestionJDBCDAO();
-		if(newCreateBtn.getText().equals(update))
+		if(newCreateBtn.getText().equals(UPDATE))
 			dao.update(question);
 		else
 			dao.create(question);
@@ -478,7 +480,7 @@ public class LoginPaneController{
 			if(!newImagePathLabel.getText().isEmpty())
 				question.setImage(newImagePathLabel.getText());
 			MCQQuestionDAO dao = new MCQQuestionDAO();
-			if(newCreateBtn.getText().equals(update))
+			if(newCreateBtn.getText().equals(UPDATE))
 				dao.update(question);
 			else
 				dao.create(question);
@@ -538,11 +540,14 @@ public class LoginPaneController{
 		viewQuestionsScrollPane.getChildren().add(questionsList);
 		newQuestionTitleBtn.setSelected(false);
 	}
+	private String getQuizName(String quizName) {
+		return "Quiz "+quizName;
+	}
 	@FXML
     protected void startQuiz() {
 		QuizJDBCDAO quizDAO = new QuizJDBCDAO();
 		if(quizDAO.checkQuiz(quizName.getText())){
-			Optional<String> result=userInputDialog("","Quiz "+quizName.getText()+" found, get ready to start", "Enter your name", "Full name: ");
+			Optional<String> result=userInputDialog("",getQuizName(quizName.getText())+" found, get ready to start", "Enter your name", "Full name: ");
 			result.ifPresent( name -> {
 				studentLoginPane.setVisible(false);
 				
@@ -555,9 +560,9 @@ public class LoginPaneController{
 				UserJDBCDAO userdao = new UserJDBCDAO();
 				boolean userfound=userdao.validateStudent(currentStudent);
 				if(currentQuiz.getQuestions().isEmpty()){
-					alertInfo(AlertType.ERROR,"No questions for these criterias","ERROR");
+					alertInfo(AlertType.ERROR,"No questions for these criterias",ERROR);
 				}else if(userfound){
-					alertInfo(AlertType.ERROR,"Name already exists","ERROR");
+					alertInfo(AlertType.ERROR,"Name already exists",ERROR);
 					startQuiz();
 				}else{
 					userdao.create(currentStudent);
@@ -570,7 +575,7 @@ public class LoginPaneController{
 				}
 			});
 		}else {
-			Optional<String> result = userInputDialog(quizName.getText(), "Quiz "+quizName.getText()+" not found","Enter new quiz name: ","Quiz name: ");
+			Optional<String> result = userInputDialog(quizName.getText(), getQuizName(quizName.getText())+" not found","Enter new quiz name: ",getQuizName("name: "));
 			result.ifPresent(choice -> {
 				quizName.setText(choice);
 				startQuiz();
@@ -583,52 +588,58 @@ public class LoginPaneController{
 		if(currentStudent.getQuestionCounter()!=0)
 			checkPreviousQuestion();
 		if(currentStudent.getQuestionCounter()<currentQuiz.getQuestions().size()) {
-			if(currentStudent.getQuestionCounter()==currentQuiz.getQuestions().size()-1) {
-				nextQuestionBtn.setText("Submit");
-			}
-			
-			currentQuestion = currentQuiz.getQuestions().get(currentStudent.getQuestionCounter());
-			quizQuestionLabel.setText(currentQuestion.getQuestion());
-			if(currentQuestion.isMCQ()) {
-				quizAnswerTextArea.setVisible(false);
-				newChoices.clear();
-				newChoicesPane.getChildren().clear();
-				for(MCQChoice choice : currentQuestion.getChoices()) {
-					final CheckBox checkBox = new CheckBox(choice.getChoice());
-					newChoices.add(checkBox);
-				}
-				newChoice = new ListView<>(FXCollections.observableArrayList(newChoices));
-				newChoice.setPrefHeight(newChoices.size() * (double)24 + 24);
-				newChoice.setPrefWidth((double)440);
-				quizAnswerPane.getChildren().add(newChoice);
-				quizAnswerPane.getParent().getParent().getParent().setVisible(true);
-			}else {
-				quizAnswerPane.getChildren().remove(newChoice);
-				quizAnswerTextArea.setVisible(true);
-				quizAnswerTextArea.setText("");
-			}
-			if(currentQuestion.getImage()!=null&&!currentQuestion.getImage().isEmpty()) {
-				try {
-					Image image1 = new Image(new FileInputStream(currentQuestion.getImage()));
-					quizImageViewLabel.setImage(image1);
-				} catch (FileNotFoundException e) {
-					Logger.logMessage("Error setting image to question");
-				}
-			}else {
-				quizImageViewLabel.setImage(null);
-			}
-			currentStudent.incrementQuestionCounter();
+			nextQuestionQuiz();
 		}else {
-			alertInfo(AlertType.INFORMATION,"Thank you","Your quiz is submitted successfully");
-			currentStudent.calculateTotal(100);
-			alertInfo(AlertType.INFORMATION,"Thank you",currentStudent.getFinalScore());
-			studentLoginPane.setVisible(true);
-			quizTitledPane.setExpanded(false);
-			quizTitledPane.setText("");
-
-			freeTestTabBtn.setDisable(false);
-			professorTabBtn.setDisable(false);
+			submitQuiz();
 		}
+	}
+	private void nextQuestionQuiz() {
+		if(currentStudent.getQuestionCounter()==currentQuiz.getQuestions().size()-1) {
+			nextQuestionBtn.setText("Submit");
+		}
+		
+		currentQuestion = currentQuiz.getQuestions().get(currentStudent.getQuestionCounter());
+		quizQuestionLabel.setText(currentQuestion.getQuestion());
+		if(currentQuestion.isMCQ()) {
+			quizAnswerTextArea.setVisible(false);
+			newChoices.clear();
+			newChoicesPane.getChildren().clear();
+			for(MCQChoice choice : currentQuestion.getChoices()) {
+				final CheckBox checkBox = new CheckBox(choice.getChoice());
+				newChoices.add(checkBox);
+			}
+			newChoice = new ListView<>(FXCollections.observableArrayList(newChoices));
+			newChoice.setPrefHeight(newChoices.size() * (double)24 + 24);
+			newChoice.setPrefWidth((double)440);
+			quizAnswerPane.getChildren().add(newChoice);
+			quizAnswerPane.getParent().getParent().getParent().setVisible(true);
+		}else {
+			quizAnswerPane.getChildren().remove(newChoice);
+			quizAnswerTextArea.setVisible(true);
+			quizAnswerTextArea.setText("");
+		}
+		if(currentQuestion.getImage()!=null&&!currentQuestion.getImage().isEmpty()) {
+			try {
+				Image image1 = new Image(new FileInputStream(currentQuestion.getImage()));
+				quizImageViewLabel.setImage(image1);
+			} catch (FileNotFoundException e) {
+				Logger.logMessage("Error setting image to question");
+			}
+		}else {
+			quizImageViewLabel.setImage(null);
+		}
+		currentStudent.incrementQuestionCounter();
+	}
+	private void submitQuiz() {
+		alertInfo(AlertType.INFORMATION,"Thank you","Your quiz is submitted successfully");
+		currentStudent.calculateTotal(100);
+		alertInfo(AlertType.INFORMATION,"Thank you",currentStudent.getFinalScore());
+		studentLoginPane.setVisible(true);
+		quizTitledPane.setExpanded(false);
+		quizTitledPane.setText("");
+
+		freeTestTabBtn.setDisable(false);
+		professorTabBtn.setDisable(false);
 	}
 
 	@FXML
@@ -662,6 +673,8 @@ public class LoginPaneController{
 		boolean b;
 		MCQAnswer answer;
 		b = getAnswerValidity(choices);
+		newChoices.clear();
+		newChoicesPane.getChildren().clear();
 		answer=new MCQAnswer(choicesId);
 		answer.setQuestionId(currentQuestion.getId());
 		answer.setStudent(currentStudent.getName());
@@ -671,24 +684,26 @@ public class LoginPaneController{
 	}
 	private boolean getAnswerValidity(List<MCQChoice> choices) {
 		boolean b;
-		int validAnswers=0;
-		int totalAnswers=0;
+		currentStudent.clearChoices();
 		for(CheckBox c : newChoices) 
 		{
-			for(MCQChoice choice: choices) {
-				if(choice.getChoice().equals(c.getText())) {
-					if (c.isSelected() && choice.isValid()) {
-						validAnswers++;
-					}else if (c.isSelected() && !choice.isValid()) {
-						choicesId.add(choice);
-					}
-					if(choice.isValid())
-						totalAnswers++;
+			getUserChoiceValidity(choices, c);
+		}
+		b=currentStudent.getChoicesValidity();
+		return b;
+	}
+	private void getUserChoiceValidity(List<MCQChoice> choices, CheckBox c) {
+		for(MCQChoice choice: choices) {
+			if(choice.getChoice().equals(c.getText())) {
+				if (c.isSelected() && choice.isValid()) {
+					currentStudent.incrementUserChoice();
+				}else if (c.isSelected() && !choice.isValid()) {
+					choicesId.add(choice);
 				}
+				if(choice.isValid())
+					currentStudent.incrementValidChoice();
 			}
 		}
-		b=validAnswers==totalAnswers;
-		return b;
 	}
 	private Optional<String> userInputDialog(String input,String title, String header, String content) {
 		TextInputDialog dialog = new TextInputDialog(input);
@@ -702,14 +717,13 @@ public class LoginPaneController{
 	@FXML
     protected void startFreeTest() {
 		List<String> topics = new ArrayList<>();
-		 int j=0;
 		 for(CheckBox c : cb) {
 			 if(c.isSelected()) {
 				 topics.add(c.getText());
 			 }
 		 }
 		 if(topics.isEmpty()) {
-			 alertInfo(AlertType.ERROR, "ERROR","Select at least one topic");
+			 alertInfo(AlertType.ERROR, ERROR,"Select at least one topic");
 		 }else{
 			 if(freeName.getText()!=null&&!freeName.getText().isEmpty()) {
 				 
@@ -731,12 +745,6 @@ public class LoginPaneController{
 				professorTabBtn.setDisable(true);
 			 }
 		 }
-		System.out.println("Name: "+freeName.getText());
-		for(CheckBox c : cb) {
-			System.out.println(c.isSelected()+" - "+c.getText());
-			
-		}
-		System.out.println("Difficulty: "+diffSlider.getValue());
 	}
 	    
 	@FXML

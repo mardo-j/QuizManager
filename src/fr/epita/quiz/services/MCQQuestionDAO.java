@@ -21,7 +21,6 @@ public class MCQQuestionDAO {
 			insertStatement.setString(3, question.getTopics().toString());
 			insertStatement.setInt(4, 1);
 			insertStatement.setString(5, question.getImage());
-			System.out.println(insertStatement.toString());
 			insertStatement.execute();
 			int insertID = getLastInsertID(connection);
 			int resultlength=question.getChoices().size();
@@ -47,7 +46,6 @@ public class MCQQuestionDAO {
 				updateStatement.setInt(4, 1);
 				updateStatement.setString(5, question.getImage());
 				updateStatement.setInt(6, question.getId());
-				System.out.println(updateStatement.toString());
 				updateStatement.execute();
 				deleteChoicesFromDB(question, connection);
 				int resultlength=question.getChoices().size();
@@ -67,7 +65,6 @@ public class MCQQuestionDAO {
 			PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)){
 			deleteStatement.setInt(1, question.getId());
 			deleteStatement.execute();
-			System.out.println(deleteStatement.toString());
 			deleteChoicesFromDB(question, connection);
 		}catch (SQLException e) {
 			Logger.logMessage("Error delete MCQQuestion");
@@ -88,7 +85,6 @@ public class MCQQuestionDAO {
 			insertStatement.setString(1, question.getChoices().get(i).getChoice());
 			insertStatement.setInt(2, question.getChoices().get(i).isValid() ? 1: 0);
 			insertStatement.setInt(3, insertID);
-			System.out.println(insertStatement.toString());
 			
 			insertStatement.execute();
 		} catch (SQLException e) {

@@ -32,6 +32,7 @@ import fr.epita.quiz.datamodel.User;
 
 
 public class GUIDAO implements ActionListener {
+	private static final String SEARCH = "Search";
 	JFrame f;
 	JButton b1;
 	JButton b2;
@@ -48,9 +49,7 @@ public class GUIDAO implements ActionListener {
 	String info = "Info";
 	String update = "Update";
 	int questionCounter;
-	int MCQquestionCounter;
-	int validAnswers;
-	int totalAnswers;
+	int mCQquestionCounter;
 	int rightAnswers;
 	
 	public GUIDAO() {
@@ -198,7 +197,7 @@ public class GUIDAO implements ActionListener {
 			userdao.studentQuizTaken(student, quiz);
 			p1.setLayout(new BorderLayout());
 			questionCounter=0;
-			MCQquestionCounter=0;
+			mCQquestionCounter=0;
 			rightAnswers=0;
 			JLabel lh = new JLabel(quiz.getTitle(),SwingConstants.CENTER);
 			lh.setFont(f50);
@@ -322,9 +321,9 @@ public class GUIDAO implements ActionListener {
 
 	private void submitQuiz() {
 		JOptionPane.showMessageDialog(null, "Your quiz is submitted successfully","Thank you", JOptionPane.INFORMATION_MESSAGE);
-		JOptionPane.showMessageDialog(null, "Your score is: "+rightAnswers*100/MCQquestionCounter+"% "
-				+ "\n"+rightAnswers+"/"+MCQquestionCounter+" right MCQ answers"
-						+ "\nThe other "+(questionCounter-MCQquestionCounter)+" will be corrected by the Professor","Thank you", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Your score is: "+rightAnswers*100/mCQquestionCounter+"% "
+				+ "\n"+rightAnswers+"/"+mCQquestionCounter+" right MCQ answers"
+						+ "\nThe other "+(questionCounter-mCQquestionCounter)+" will be corrected by the Professor","Thank you", JOptionPane.INFORMATION_MESSAGE);
 		
 		loginTab();
 	}
@@ -360,9 +359,9 @@ public class GUIDAO implements ActionListener {
 		List<MCQChoice> choicesId = new ArrayList<>();
 		List<MCQChoice> choices = question.getChoices();
 		MCQAnswer answer;
-		getUserMCQAnswer(cb, choicesId, choices);
-		MCQquestionCounter++;
-		if(validAnswers==totalAnswers) {
+		getUserMCQAnswer(student,cb, choicesId, choices);
+		mCQquestionCounter++;
+		if(student.getChoicesValidity()) {
 			labels.get(questionCounter-1).setForeground(Color.GREEN);
 			rightAnswers++;
 			JOptionPane.showMessageDialog(null, "The answer is right", "Right Answer",JOptionPane.INFORMATION_MESSAGE);
@@ -377,23 +376,29 @@ public class GUIDAO implements ActionListener {
 		dao.create(answer);
 	}
 
-	private void getUserMCQAnswer(Map<Integer, JCheckBox> cb, List<MCQChoice> choicesId, List<MCQChoice> choices) {
-		validAnswers=0;
-		totalAnswers=0;
+	private void getUserMCQAnswer(User student,Map<Integer, JCheckBox> cb, List<MCQChoice> choicesId, List<MCQChoice> choices) {
+		
+
+		student.clearChoices();
 		for (Map.Entry<Integer, JCheckBox> entry : cb.entrySet())
 		{
 			
-			for(MCQChoice choice: choices) {
-				if(choice.getId()==entry.getKey()) {
-					if(entry.getValue().isSelected()) {
-						if(choice.isValid()) {
-							validAnswers++;
-						}
-						choicesId.add(choice);
+			getUserChoiceValidity(student, choicesId, choices, entry);
+		}
+	}
+
+	private void getUserChoiceValidity(User student, List<MCQChoice> choicesId, List<MCQChoice> choices,
+			Map.Entry<Integer, JCheckBox> entry) {
+		for(MCQChoice choice: choices) {
+			if(choice.getId()==entry.getKey()) {
+				if(entry.getValue().isSelected()) {
+					if(choice.isValid()) {
+						student.incrementUserChoice();
 					}
-					if(choice.isValid())
-						totalAnswers++;
+					choicesId.add(choice);
 				}
+				if(choice.isValid())
+					student.incrementValidChoice();
 			}
 		}
 	}
@@ -447,7 +452,7 @@ public class GUIDAO implements ActionListener {
 		p11.add(lh,BorderLayout.NORTH);
 		JPanel p5 = new JPanel();
 		p5.setLayout(new BorderLayout());
-		JLabel lq = new JLabel("Search:");
+		JLabel lq = new JLabel(SEARCH);
 		lq.setFont(f30);
 		JTextField tf = new JTextField();
 		JPanel p6 = new JPanel();
@@ -460,7 +465,7 @@ public class GUIDAO implements ActionListener {
 
 		p5.add(sp,BorderLayout.CENTER);
 		p11.add(p5,BorderLayout.CENTER);
-		JButton b21 = new JButton("Search");
+		JButton b21 = new JButton(SEARCH);
 		b21.addActionListener( e -> searchingButton(p4,new Question(tf.getText(),null,null,0)) );
 		p6.add(b21,BorderLayout.EAST);
 		p3.removeAll();
@@ -600,7 +605,7 @@ public class GUIDAO implements ActionListener {
 
 		p5.add(sp,BorderLayout.CENTER);
 		p11.add(p5,BorderLayout.CENTER);
-		JButton b21 = new JButton("Search");
+		JButton b21 = new JButton(SEARCH);
 		b21.addActionListener( e -> searchingQuizButton(p4,new Quiz(tf.getText())));
 		p6.add(b21,BorderLayout.EAST);
 		p3.removeAll();
@@ -631,7 +636,7 @@ public class GUIDAO implements ActionListener {
 
 		p5.add(sp,BorderLayout.CENTER);
 		p11.add(p5,BorderLayout.CENTER);
-		JButton b21 = new JButton("Search");
+		JButton b21 = new JButton(SEARCH);
 		b21.addActionListener( e -> searchingStudentButton(p4,new Student(tf.getText())));
 		p6.add(b21,BorderLayout.EAST);
 		p3.removeAll();
@@ -657,12 +662,8 @@ public class GUIDAO implements ActionListener {
 			JLabel l = new JLabel(u.toString());
 			l.setFont(f30);
 			p12.add(l);
-//			for(Question qu : u.getQuestions()) {
-//				p12.add(new JLabel(qu.toString()));
-//			}
 			p11.add(p12,BorderLayout.CENTER);
 			JButton b15=new JButton(update);
-			b15.addActionListener( e -> userPanel(u) );
 			p11.add(b15,BorderLayout.EAST);
 			p11.setPreferredSize(new Dimension((int)dim.getWidth()/3*2,100));
 			p4.add(p11);
@@ -670,9 +671,7 @@ public class GUIDAO implements ActionListener {
 		f.revalidate();
 		f.repaint();
 	}
-	private void userPanel(User u) {
-		// TODO Auto-generated method stub
-	}
+
 
 	private void searchingQuizButton(JPanel p4,Quiz q) {
 		QuizJDBCDAO dao = new QuizJDBCDAO();
