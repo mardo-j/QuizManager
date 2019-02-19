@@ -75,3 +75,64 @@
 2019-02-18_16:35:29,575 Error searching question
 2019-02-18_17:18:23,866 Error selecting topics from questions
 2019-02-18_17:18:30,990 Error selecting from quiz
+2019-02-18_20:39:09,743 Error selecting topics from questions
+2019-02-18_20:39:17,714 Error searching question
+2019-02-18_20:39:22,225 Error searching question
+2019-02-18_20:39:22,236 Error searching question
+2019-02-18_20:39:22,995 Error searching question
+2019-02-18_20:39:23,008 Error searching quiz Table "QUIZ" not found; SQL statement:
+select id,title from QUIZ WHERE TITLE like ? [42102-197]
+2019-02-18_20:39:24,489 Error searching quiz Table "QUIZ" not found; SQL statement:
+select id,title from QUIZ WHERE TITLE like ? [42102-197]
+2019-02-18_20:39:24,500 Error searching question
+2019-02-18_20:39:25,179 Error searching question
+2019-02-18_20:39:25,189 Error searching question
+2019-02-18_20:39:25,761 Error searching question
+2019-02-18_20:39:25,775 Error searching question
+2019-02-18_20:43:29,322 Error searching question
+2019-02-18_20:43:52,096 Error searching question
+2019-02-18_20:43:52,952 Error searching question
+2019-02-18_20:48:34,921 Error selecting topics from questions
+2019-02-18_20:50:48,648 Error selecting topics from questions
+2019-02-18_20:51:00,370 Error authenticating user
+2019-02-18_20:51:07,281 Error authenticating user
+2019-02-18_20:52:27,750 Error select new image
+2019-02-18_20:52:31,943 Error select new image
+2019-02-18_20:52:36,365 Error select new image
+2019-02-18_20:52:41,436 Error select new image
+2019-02-18_20:55:06,192 Error select new image
+2019-02-18_20:55:10,789 Error select new image
+2019-02-18_20:55:13,632 Error select new image
+2019-02-18_20:55:17,234 Error select new image
+2019-02-18_20:56:53,516 Error create MCQQuestion
+2019-02-18_20:57:14,200 Error searching question
+2019-02-18_20:57:17,641 Error searching question
+2019-02-18_20:57:18,617 Error searching question
+2019-02-18_20:57:18,796 Error searching question
+2019-02-18_20:57:23,117 Error searching question
+2019-02-18_20:57:23,582 Error searching question
+2019-02-18_20:57:23,754 Error searching question
+2019-02-18_20:57:38,590 Error searching question
+2019-02-18_20:57:39,027 Error searching question
+2019-02-18_20:57:39,189 Error searching question
+2019-02-18_20:57:39,487 Error searching question
+2019-02-18_20:57:39,689 Error searching question
+2019-02-18_20:57:43,488 Error searching question
+2019-02-18_20:59:22,631 Error authenticating user
+2019-02-18_21:06:06,679 Error searching question
+2019-02-18_21:06:08,413 Error searching question
+2019-02-18_21:06:08,428 Error searching question
+2019-02-18_21:06:09,279 Error searching question
+2019-02-18_21:06:10,034 Error searching question
+2019-02-18_21:06:14,346 Error searching question
+2019-02-18_21:09:11,025 Error searching question
+2019-02-18_21:09:11,932 Error searching question
+2019-02-18_21:09:11,942 Error searching question
+2019-02-18_21:09:12,315 Error searching question
+2019-02-18_21:09:12,321 Error searching question
+2019-02-18_21:15:08,085 Error select new image
+2019-02-18_21:15:10,484 Error select new image
+2019-02-18_21:18:02,181 Error authenticating user
+2019-02-18_21:18:08,120 Error authenticating user
+2019-02-18_21:18:47,285 Error selecting topics from questions
+2019-02-18_21:18:53,885 Error authenticating user Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]

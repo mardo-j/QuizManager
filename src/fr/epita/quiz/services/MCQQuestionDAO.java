@@ -21,6 +21,7 @@ public class MCQQuestionDAO {
 			insertStatement.setString(3, question.getTopics().toString());
 			insertStatement.setInt(4, 1);
 			insertStatement.setString(5, question.getImage());
+			System.out.println(insertStatement.toString());
 			insertStatement.execute();
 			int insertID = getLastInsertID(connection);
 			int resultlength=question.getChoices().size();

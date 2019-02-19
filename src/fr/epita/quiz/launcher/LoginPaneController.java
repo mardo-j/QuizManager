@@ -85,7 +85,6 @@ public class LoginPaneController{
 	@FXML private Button newCreateBtn;
 	@FXML private Button createCloseImageBtn;
 	@FXML private ImageView newImageLabel;
-	@FXML private Label newQuestionId;
 	@FXML private Label newImagePathLabel;
 	@FXML private ToggleButton newQuizTitleBtn;
 	@FXML private ToggleButton newQuestionTitleBtn;	
@@ -94,7 +93,8 @@ public class LoginPaneController{
 
 	@FXML private Label updateQuizIdLabel;
 	@FXML private TextFlow textQuestionFlow;
-	
+	private int updateQuizIdInteger;
+	private int updateQuestionIdInteger;
 
 	@FXML private TextField newQuizNameTextField;
 	@FXML private TextField viewQuizSearchTextField;
@@ -139,7 +139,7 @@ public class LoginPaneController{
 		}else {
 			QuizJDBCDAO qdao = new QuizJDBCDAO();
 			Quiz q1 = new Quiz(newQuizNameTextField.getText(), selectedQuestions);
-			q1.setId(Integer.parseInt(updateQuizIdLabel.getText()));
+			q1.setId(updateQuizIdInteger);
 			if(newCreateQuizBtn.getText().equals("Create")) {
 				qdao.create(q1);
 			}else {
@@ -205,7 +205,7 @@ public class LoginPaneController{
 		}
 		newQuizNameTextField.setText(quiz.getTitle());
 		newCreateQuizBtn.setText(update);
-		updateQuizIdLabel.setText(String.valueOf(quiz.getId()));
+		updateQuizIdInteger=quiz.getId();
 		ListView<CheckBox> checkBoxList = new ListView<>(FXCollections.observableArrayList(quizBox));
 		checkBoxList.setPrefHeight(quizBox.size() * (double)24 + 24);
 		checkBoxList.setPrefWidth((double)440);
@@ -286,7 +286,7 @@ public class LoginPaneController{
 			question=questions.get(questionsList.getSelectionModel().getSelectedIndex());
 		}
 		System.out.println(question);
-		newQuestionId.setText(String.valueOf(question.getId()));
+		updateQuestionIdInteger=question.getId();
 		newQuestionArea.setText(question.getQuestion());
 		newTopicsField.setText(question.getTopics().toString().substring(1, question.getTopics().toString().length()-1));
 		newDifficultySlider.setValue((double)question.getDifficulty());
@@ -452,7 +452,7 @@ public class LoginPaneController{
 
 	private void createNewQuestion(final List<String> result) {
 		Question question = new Question(newQuestionArea.getText(),result,(int)newDifficultySlider.getValue(),0);
-		question.setId(Integer.parseInt(newQuestionId.getText()));
+		question.setId(updateQuestionIdInteger);
 		if(!newImagePathLabel.getText().isEmpty())
 			question.setImage(newImagePathLabel.getText());
 		QuestionJDBCDAO dao = new QuestionJDBCDAO();
@@ -474,7 +474,7 @@ public class LoginPaneController{
 			alertInfo(AlertType.ERROR,"Error validating question","Please select at least 1 choice as valid");
 		else {
 			MCQQuestion question = new MCQQuestion(newQuestionArea.getText(),result,(int)newDifficultySlider.getValue(),1,choices);
-			question.setId(Integer.parseInt(newQuestionId.getText()));
+			question.setId(updateQuestionIdInteger);
 			if(!newImagePathLabel.getText().isEmpty())
 				question.setImage(newImagePathLabel.getText());
 			MCQQuestionDAO dao = new MCQQuestionDAO();
@@ -677,10 +677,9 @@ public class LoginPaneController{
 		{
 			for(MCQChoice choice: choices) {
 				if(choice.getChoice().equals(c.getText())) {
-					if(c.isSelected()) {
-						if(choice.isValid()) {
-							validAnswers++;
-						}
+					if (c.isSelected() && choice.isValid()) {
+						validAnswers++;
+					}else if (c.isSelected() && !choice.isValid()) {
 						choicesId.add(choice);
 					}
 					if(choice.isValid())

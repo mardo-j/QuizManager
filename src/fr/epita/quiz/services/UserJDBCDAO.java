@@ -138,7 +138,7 @@ public class UserJDBCDAO {
 
 			b=prepareAuthenticateAdmin(preparedStatement);
 		} catch (Exception e) {
-			Logger.logMessage("Error authenticating user");
+			Logger.logMessage("Error authenticating user "+e.getMessage());
 		}
 		return b;
 	}
