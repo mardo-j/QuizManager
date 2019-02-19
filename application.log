@@ -136,3 +136,17 @@ select id,title from QUIZ WHERE TITLE like ? [42102-197]
 2019-02-18_21:18:08,120 Error authenticating user
 2019-02-18_21:18:47,285 Error selecting topics from questions
 2019-02-18_21:18:53,885 Error authenticating user Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]
+2019-02-19_15:58:50,622 Error setting image
+2019-02-19_16:31:56,484 Error select new image
+2019-02-19_16:32:00,988 Error select new image
+2019-02-19_16:32:13,523 Error select new image
+2019-02-19_16:32:27,280 Error select new image
+2019-02-19_16:39:34,155 Error select new image
+2019-02-19_16:39:38,371 Error select new image
+2019-02-19_16:39:42,080 Error select new image
+2019-02-19_16:39:51,716 Error select new image
+2019-02-19_16:41:20,107 Error select new image
+2019-02-19_16:41:23,281 Error select new image
+2019-02-19_16:41:27,466 Error select new image
+2019-02-19_16:41:31,022 Error select new image
+2019-02-19_16:50:29,749 Error select new image

@@ -111,6 +111,7 @@ public class LoginPaneController{
 	private ListView<CheckBox> newChoice;
 	private List<CheckBox> quizBox=new ArrayList<>();
 	private List<Question> questions;
+	private List<Quiz> quizz;
 	private ListView<Quiz> quizList;
 	private ListView<String> quizListString;
 	private Quiz currentQuiz;
@@ -133,7 +134,7 @@ public class LoginPaneController{
 			}
 		}
 		if(selectedQuestions.isEmpty()) {
-			alertInfo(AlertType.ERROR, "Error", "Select at least one question to create/update a quiz");
+			alertInfo(AlertType.ERROR, ERROR, "Select at least one question to create/update a quiz");
 		}else {
 			QuizJDBCDAO qdao = new QuizJDBCDAO();
 			Quiz q1 = new Quiz(newQuizNameTextField.getText(), selectedQuestions);
@@ -143,6 +144,7 @@ public class LoginPaneController{
 			}else {
 				qdao.update(q1);
 			}
+			alertInfo(AlertType.INFORMATION,newCreateQuizBtn.getText()+" Quiz", "Quiz "+newCreateQuizBtn.getText()+"d successfully");
 		}
 	}
 	@FXML
@@ -179,13 +181,11 @@ public class LoginPaneController{
 	}
 	@FXML
 	protected void viewQuizEditBtn(){
-
-//		Quiz quiz=quizList.getSelectionModel().getSelectedItem();
 		Quiz quiz;
-		if(newQuizTitleBtn.isSelected()) {
-			quiz=quizList.getItems().get(quizListString.getSelectionModel().getSelectedIndex());
+		if(viewQuizTitleBtn.isSelected()) {
+			quiz=quizz.get(quizListString.getSelectionModel().getSelectedIndex());
 		}else {
-			quiz=quizList.getSelectionModel().getSelectedItem();
+			quiz=quizz.get(quizList.getSelectionModel().getSelectedIndex());
 		}
 		QuestionJDBCDAO dao = new QuestionJDBCDAO();
 		questions = dao.search(new Question());
@@ -219,7 +219,12 @@ public class LoginPaneController{
 	}
 	@FXML
 	protected void viewQuizDeleteBtn(){
-		Quiz quiz=quizList.getSelectionModel().getSelectedItem();
+		Quiz quiz;
+		if(newQuizTitleBtn.isSelected()) {
+			quiz=quizz.get(quizListString.getSelectionModel().getSelectedIndex());
+		}else {
+			quiz=quizz.get(quizList.getSelectionModel().getSelectedIndex());
+		}
 		Optional<ButtonType> result = confirmDialog("Are you sure you want to delete the Quiz: "+quiz.getTitle());
 		if (result.isPresent()&&result.get() == ButtonType.OK){
 			QuizJDBCDAO quidao = new QuizJDBCDAO();
@@ -256,8 +261,7 @@ public class LoginPaneController{
 	}
 	private void viewGetQuizzes(String quizTitle) {
 		QuizJDBCDAO quizDAO = new QuizJDBCDAO();
-		List<Quiz> quizz = quizDAO.search(new Quiz(quizTitle));
-		quizList = new ListView<>(FXCollections.observableArrayList(quizz));
+		quizz = quizDAO.search(new Quiz(quizTitle));
 		List<String> quizString = new ArrayList<>();
 		if(viewQuizTitleBtn.isSelected()) {
 			for(Quiz quiz : quizz) {
@@ -270,6 +274,7 @@ public class LoginPaneController{
 			viewQuizScrollPane.getChildren().add(quizListString);
 			
 		}else {
+			quizList = new ListView<>(FXCollections.observableArrayList(quizz));
 			quizList.setPrefHeight(quizz.size() * (double)24 + 24);
 			quizList.setPrefWidth((double)440);
 			viewQuizScrollPane.getChildren().clear();
@@ -324,7 +329,7 @@ public class LoginPaneController{
 	private void promptToAddNewChoice(final CheckBox checkBox) {
 		TextInputDialog dialog = new TextInputDialog(checkBox.getText());
 		 
-		dialog.setTitle("Add new Choice");
+		dialog.setTitle("Add new Cdaohoice");
 		dialog.setHeaderText("Enter new choice: ");
 		dialog.setContentText("Choice: ");
 		 
@@ -442,7 +447,7 @@ public class LoginPaneController{
 				createNewQuestion(result);
 			}
 			if(b) {
-				alertInfo(AlertType.INFORMATION,newCreateBtn.getText()+" New Question", "New question "+newCreateBtn.getText()+"d successfully");
+				alertInfo(AlertType.INFORMATION,newCreateBtn.getText()+" Question", "Question "+newCreateBtn.getText()+"d successfully");
 				clearCreateFields();
 			}
 		}else {
