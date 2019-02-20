@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="/Logger"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/SARAH/git/QuizManager/lib/h2-1.4.197.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SARAH/git/QuizManager/lib/itextpdf-5.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/h2-1.4.197.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
