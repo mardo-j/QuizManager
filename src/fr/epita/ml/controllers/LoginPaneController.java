@@ -115,7 +115,6 @@ public class LoginPaneController{
 	private List<Question> questions;
 	private List<Quiz> quizz;
 	private ListView<Quiz> quizList;
-	private List<Student> students;
 	private ListView<Student> studentsList;
 	private ListView<String> quizListString;
 	private Quiz currentQuiz;
@@ -318,7 +317,7 @@ public class LoginPaneController{
 	
 	protected void viewGetUsers(String studentName) {
 		UserJDBCDAO userDAO = new UserJDBCDAO();
-		students = userDAO.search(new Student(studentName));
+		List<Student> students = userDAO.search(new Student(studentName));
 		studentsList = new ListView<>(FXCollections.observableArrayList(students));
 		studentsList.setPrefHeight(students.size() * (double)24 + 24);
 		studentsList.setPrefWidth((double)480);
@@ -421,7 +420,6 @@ public class LoginPaneController{
 			}else {
 				questionsList.getItems().remove(questionsList.getSelectionModel().getSelectedIndex());
 			}
-//			questionsList.getItems().remove(questionsList.getSelectionModel().getSelectedIndex());
 		} else {
 			alertInfo(AlertType.INFORMATION, "Thanks there is confirmation", "I knew you did it unintentionally");
 		}

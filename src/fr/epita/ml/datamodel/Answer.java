@@ -1,5 +1,6 @@
 package fr.epita.ml.datamodel;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,10 +18,10 @@ public class Answer {
 	/**
 	 * Answer class Constructor
 	 * 
-	 * @param text User's answer
+	 * 
 	 */
 	public Answer() {
-		this.text=text;
+		//Overridden in other class
 	}
 	
 	public int getId() {
@@ -56,19 +57,20 @@ public class Answer {
 	}
 
 	public void setChoices(List<MCQChoice> choices) {
+		//Overridden in other class
 	}
 
 
 
 	public List<MCQChoice> getChoices() {
-		return null;
+		return Collections.emptyList(); 
 	}
 
 	public void setValid(boolean b) {
+		//Overridden in other class
 	}
 
 	public boolean isValid() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

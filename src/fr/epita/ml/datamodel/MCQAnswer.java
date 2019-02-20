@@ -16,9 +16,10 @@ public class MCQAnswer extends Answer{
 	
 	/**
 	 * MCQAnswer constructor
-	 * @param choices User's list of choices he answered
+	 * 
 	 */
 	public MCQAnswer() {
+		//Overriden constructor
 	}
 	@Override
 	public List<MCQChoice> getChoices() {
@@ -27,16 +28,20 @@ public class MCQAnswer extends Answer{
 	@Override
 	public void setChoices(List<MCQChoice> choices) {
 		this.choices = choices;
-	}	
+	}
+	@Override
 	public int getQuestionId() {
 		return questionId;
 	}
+	@Override
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
+	@Override
 	public String getStudent() {
 		return student;
 	}
+	@Override
 	public void setStudent(String student) {
 		this.student = student;
 	}

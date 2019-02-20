@@ -22,6 +22,8 @@ import fr.epita.ml.datamodel.User;
 public class UserJDBCDAO {
 	
 
+	private static final String ANSWER2 = "answer";
+
 	public void create(User user) {
 		String sqlCommand = "INSERT INTO USER(name,admin,password) VALUES (?,?,?)";
 		try (Connection connection = getConnection();
@@ -136,33 +138,37 @@ public class UserJDBCDAO {
 				resultList.add(q);
 				Answer answer;
 				if(results.getInt("mcq")==1) {
-					List<String> answersId=Arrays.asList(results.getString("answer").substring(1,results.getString("answer").length()-1).split(",")).stream().map(String :: trim).filter(e->Integer.parseInt(e)>0).collect(Collectors.toList());
+					List<String> answersId=Arrays.asList(results.getString(ANSWER2).substring(1,results.getString(ANSWER2).length()-1).split(",")).stream().map(String :: trim).filter(e->Integer.parseInt(e)>0).collect(Collectors.toList());
 					List<MCQChoice> resultList1 = new ArrayList<>();
 					for(String s : answersId) {
 						String selectQuery = "SELECT CHOICE, VALID FROM CHOICES WHERE ID=?";
-						try (Connection connection = getConnection();
-								PreparedStatement preparedStatement1 = connection.prepareStatement(selectQuery);
-								) {
-
-							preparedStatement1.setInt(1, Integer.parseInt(s));
-							prepareSearchChoiceMethod(resultList1, preparedStatement1);
-							
-						} catch (Exception e) {
-							Logger.logMessage("Error searching choices "+e.getMessage());
-						}
+						selectChoiceTryStatement(resultList1, s, selectQuery);
 					}
 					answer = new MCQAnswer();
 					answer.setChoices(resultList1);
 					answer.setValid(results.getInt("valid")==1);
 				}else {
 					answer = new Answer();
-					answer.setText(results.getString("answer"));
+					answer.setText(results.getString(ANSWER2));
 					
 				}
 				answersList.add(answer);
 			}
 		} catch (SQLException e) {
 			Logger.logMessage("Error prepareSearchQuestionMethod user");
+		}
+	}
+
+	private void selectChoiceTryStatement(List<MCQChoice> resultList1, String s, String selectQuery) {
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement1 = connection.prepareStatement(selectQuery);
+				) {
+
+			preparedStatement1.setInt(1, Integer.parseInt(s));
+			prepareSearchChoiceMethod(resultList1, preparedStatement1);
+			
+		} catch (Exception e) {
+			Logger.logMessage("Error searching choices "+e.getMessage());
 		}
 	}
 	private void prepareSearchChoiceMethod(List<MCQChoice> resultList, PreparedStatement preparedStatement) {

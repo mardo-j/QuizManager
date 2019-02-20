@@ -22,6 +22,7 @@ import fr.epita.ml.datamodel.Quiz;
  *
  */
 public class QuestionJDBCDAO {
+	private static final String ERROR_IN_GETTING_QUIZ_QUESTIONS = "Error in getting quiz questions";
 	private static final String IMAGE = "image";
 	String topics="topics";
 	String label="label";
@@ -144,7 +145,7 @@ public class QuestionJDBCDAO {
 			preparedStatement.setString(1, quiz.getTitle());
 			prepareTryStatement(resultList, preparedStatement);
 		} catch (Exception e) {
-			Logger.logMessage("Error in getting quiz questions");
+			Logger.logMessage(ERROR_IN_GETTING_QUIZ_QUESTIONS);
 		}
 		return resultList;
 	}
@@ -158,17 +159,34 @@ public class QuestionJDBCDAO {
 			temp.append(" or topics like ?");
 		  }
 		temp.append(")");
-		String selectQuery = "select id,difficulty,label,topics,mcq,image from QUESTION WHERE difficulty=? and "+temp.toString();
-		try (Connection connection = getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
-				) {
-			preparedStatement.setInt(1, question.getDifficulty());
-			for(int i=0;i<topicsSize;i++) {
-				preparedStatement.setString(i+2, "%"+question.getTopics().get(i)+"%");
+		if(question.getDifficulty()==0) {
+			for(int i=1;i<4;i++){
+				String selectQuery = "select id,difficulty,label,topics,mcq,image from QUESTION WHERE difficulty=? and "+temp.toString()+" limit 4";
+				try (Connection connection = getConnection();
+						PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+						) {
+					preparedStatement.setInt(1, i);
+					for(int j=0;j<topicsSize;j++) {
+						preparedStatement.setString(j+2, "%"+question.getTopics().get(j)+"%");
+					}
+					prepareTryStatement(resultList, preparedStatement);
+				} catch (Exception e) {
+					Logger.logMessage(ERROR_IN_GETTING_QUIZ_QUESTIONS);
+				}
 			}
-			prepareTryStatement(resultList, preparedStatement);
-		} catch (Exception e) {
-			Logger.logMessage("Error in getting quiz questions");
+		}else {
+			String selectQuery = "select id,difficulty,label,topics,mcq,image from QUESTION WHERE difficulty=? and "+temp.toString()+"limit 20";
+			try (Connection connection = getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+					) {
+				preparedStatement.setInt(1, question.getDifficulty());
+				for(int i=0;i<topicsSize;i++) {
+					preparedStatement.setString(i+2, "%"+question.getTopics().get(i)+"%");
+				}
+				prepareTryStatement(resultList, preparedStatement);
+			} catch (Exception e) {
+				Logger.logMessage(ERROR_IN_GETTING_QUIZ_QUESTIONS);
+			}
 		}
 		return resultList;
 	}
@@ -266,7 +284,6 @@ public class QuestionJDBCDAO {
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
 				) {
-//			preparedStatement.setString(1, topics.toString());
 			for(int i=0;i<topicsSize;i++) {
 				preparedStatement.setString(i+1, "%"+topics.get(i)+"%");
 			}

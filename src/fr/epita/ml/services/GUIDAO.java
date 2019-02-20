@@ -482,7 +482,7 @@ public class GUIDAO implements ActionListener {
 		f.repaint();
 	}
 
-	private void studentLogin() {
+	public void studentLogin() {
 		boolean b;
 		String classname;
 		 do {

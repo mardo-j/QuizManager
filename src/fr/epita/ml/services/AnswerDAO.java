@@ -64,24 +64,7 @@ public class AnswerDAO {
 		}
 
 	}
-	/**
-	 * update method to update the student's open answer on the database
-	 * 
-	 * @param answer User's open answer
-	 */
-//	public void update(Answer answer) {
-//			String updateQuery = "UPDATE STUDENT_ANSWERS SET student_name=?,question_id=?,answer=? WHERE ID=?";
-//			try (Connection connection = getConnection();
-//				PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
-//				updateStatement.setString(1, answer.getStudent());
-//				updateStatement.setInt(2, answer.getQuestionId());
-//				updateStatement.setString(3, answer.getText());
-//				updateStatement.setInt(4, answer.getId());
-//				updateStatement.execute();
-//			}catch (SQLException e) {
-//				Logger.logMessage("Error updating STUDENT_ANSWERS");
-//			}
-//	}
+
 
 	/**
 	 * getConnection method to to connect to the database
@@ -93,21 +76,7 @@ public class AnswerDAO {
 		String password = conf.getConfigurationValue("jdbc.password");
 		return DriverManager.getConnection(jdbcUrl, user, password);
 	}
-	/**
-	 * delete method to delete the student's answer from the database
-	 * 
-	 * @param answer User's answer
-	 */
-	public void delete(Answer answer) {
-		String deleteQuery = "DELETE STUDENT_ANSWERS WHERE ID=?";
-		try (Connection connection = getConnection();
-			PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)){
-			deleteStatement.setInt(1, answer.getId());
-			deleteStatement.execute();
-		}catch (SQLException e) {
-			Logger.logMessage("Error deleting STUDENT_ANSWERS");
-		}
-	}
+
 	/**
 	 * search method to search for the student's answer(s) on the database
 	 * 

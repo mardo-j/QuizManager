@@ -19,8 +19,6 @@ import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.epita.logger.Logger;
-import fr.epita.ml.datamodel.Answer;
-import fr.epita.ml.datamodel.MCQAnswer;
 import fr.epita.ml.datamodel.MCQChoice;
 import fr.epita.ml.datamodel.Question;
 import fr.epita.ml.datamodel.Quiz;

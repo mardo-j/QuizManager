@@ -88,6 +88,7 @@ public class Question {
 		return this.image;
 	}
 	public void setChoices(List<MCQChoice> choices) {
+		//Overridden in other class
 	}
 	/**
 	 * Question toString method
