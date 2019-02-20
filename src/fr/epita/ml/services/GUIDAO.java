@@ -369,7 +369,8 @@ public class GUIDAO implements ActionListener {
 			labels.get(questionCounter-1).setForeground(Color.RED);
 			JOptionPane.showMessageDialog(null, "The answer is wrong", "Wrong Answer",JOptionPane.ERROR_MESSAGE);
 		}
-		answer=new MCQAnswer(choicesId);
+		answer=new MCQAnswer();
+		answer.setChoices(choicesId);
 		answer.setQuestionId(question.getId());
 		answer.setStudent(student.getName());
 		AnswerDAO dao = new AnswerDAO();
@@ -406,7 +407,8 @@ public class GUIDAO implements ActionListener {
 	}
 
 	private void createAnswerMethod(User student, Question question, JTextArea answerarea) {
-		Answer answer = new Answer(answerarea.getText());
+		Answer answer = new Answer();
+		answer.setText(answerarea.getText());
 		answer.setQuestionId(question.getId());
 		answer.setStudent(student.getName());
 		AnswerDAO dao = new AnswerDAO();

@@ -1,4 +1,7 @@
 package fr.epita.ml.datamodel;
+
+import java.util.List;
+
 /**
  * Student class with getters and setters for private variables
  * @author Mardo.Lucas
@@ -14,6 +17,10 @@ public class Student extends User{
 	private int mCQquestionCounter;
 	private boolean valid;
 	
+	private Quiz quiz;
+	
+	private List<Question> questions;
+	private List<Answer> answers;
 	
 	public Student(String name) {
 		super(name);
@@ -63,6 +70,31 @@ public class Student extends User{
 	public int getQuestionCounter() {
 		return questionCounter;
 	}
+	@Override
+	public Quiz getQuiz() {
+		return quiz;
+	}
+	@Override
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
+	}
+	@Override
+	public List<Question> getQuestions() {
+		return questions;
+	}
+	@Override
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+	@Override
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+	@Override
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
 	@Override
 	public String getFinalScore() {
 		return "Your score is: "+String.format("%.2f",this.totalgrade)+"% "

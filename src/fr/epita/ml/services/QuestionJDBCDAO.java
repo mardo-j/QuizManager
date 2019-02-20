@@ -247,7 +247,7 @@ public class QuestionJDBCDAO {
 
 			prepareTryTopicsStatement(resultList, preparedStatement);
 		} catch (Exception e) {
-			Logger.logMessage("Error selecting topics from questions");
+			Logger.logMessage("Error selecting topics from questions "+e.getMessage());
 		}
 		return resultList;
 	}

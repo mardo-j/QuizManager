@@ -7,7 +7,7 @@ import java.util.List;
  * @author Mardo.Lucas
  *
  */
-public class MCQAnswer {
+public class MCQAnswer extends Answer{
 	
 	private List<MCQChoice> choices;
 	private int questionId;
@@ -18,8 +18,7 @@ public class MCQAnswer {
 	 * MCQAnswer constructor
 	 * @param choices User's list of choices he answered
 	 */
-	public MCQAnswer(List<MCQChoice> choices) {
-		this.choices=choices;
+	public MCQAnswer() {
 	}
 	
 	public List<MCQChoice> getChoices() {

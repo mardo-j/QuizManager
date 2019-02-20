@@ -8,7 +8,6 @@ public class Answer {
 
 	private String text;
 	private int questionId;
-	private Question question;
 	
 	private int id;
 	private String student;
@@ -17,7 +16,7 @@ public class Answer {
 	 * 
 	 * @param text User's answer
 	 */
-	public Answer(String text) {
+	public Answer() {
 		this.text=text;
 	}
 	
@@ -45,12 +44,7 @@ public class Answer {
 	public void setStudent(String student) {
 		this.student = student;
 	}
-	public Question getQuestion() {
-		return question;
-	}
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
+
 	/**
 	 * Answer toString method
 	 */

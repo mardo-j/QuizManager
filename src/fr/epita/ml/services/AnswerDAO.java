@@ -149,9 +149,8 @@ public class AnswerDAO {
 	 * @param results New results to be added to the existing list
 	 */
 	private void addToResultList(List<Answer> resultList, ResultSet results) throws SQLException {
-			Answer q = new Answer(
-				results.getString("text")
-				);
+			Answer q = new Answer();
+			q.setText(results.getString("text"));
 			q.setId(results.getInt("id"));
 			q.setStudent(results.getString("student_name"));
 			q.setQuestionId(results.getInt("question_id"));

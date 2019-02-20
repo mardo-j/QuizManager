@@ -69,7 +69,7 @@ public class UserJDBCDAO {
 
 	public List<User> search(User user) {
 		List<User> resultList = new ArrayList<>();
-		String selectQuery = "select id,name from USER WHERE name like ?";
+		String selectQuery = "select id,name,student_quiz.quiz_name from USER left join student_quiz on user.name=student_quiz.student_name WHERE user.name like ? order by user.id desc";
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
 				) {
@@ -96,6 +96,8 @@ public class UserJDBCDAO {
 	private void addToResultList(List<User> resultList, ResultSet results) throws SQLException {
 		User student = new Student(results.getString("name"));
 		student.setId(results.getInt("id"));
+		student.setQuiz(new Quiz(results.getString("quiz_name")));
+//		student.set
 		resultList.add(student);
 	}
 	public void studentQuizTaken(User user,Quiz quiz) {

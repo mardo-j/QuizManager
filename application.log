@@ -194,3 +194,13 @@ INSERT INTO QUESTION(label,difficulty,topics,image) VALUES (?,?,?,?) [22001-197]
 2019-02-20_17:05:33,654 Error setting image to question
 2019-02-20_17:05:37,155 Error setting image to question
 2019-02-20_17:05:39,323 Error setting image to question
+2019-02-20_18:54:43,240 Error selecting topics from questions
+2019-02-20_18:54:56,361 Error selecting topics from questions
+2019-02-20_18:55:03,801 Error authenticating user null
+2019-02-20_18:56:44,412 Error selecting topics from questions
+2019-02-20_18:57:52,472 Error selecting topics from questions
+2019-02-20_18:58:01,574 Error authenticating user null
+2019-02-20_18:58:29,062 Error selecting topics from questions
+2019-02-20_18:59:54,039 Error selecting topics from questions null
+2019-02-20_19:00:30,798 Error selecting topics from questions null
+2019-02-20_19:00:55,493 Error selecting topics from questions null

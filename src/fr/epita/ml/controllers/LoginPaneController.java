@@ -673,7 +673,8 @@ public class LoginPaneController{
 			AnswerDAO dao = new AnswerDAO();
 			dao.create(answer);
 		}else {
-			Answer answer = new Answer(quizAnswerTextArea.getText());
+			Answer answer = new Answer();
+			answer.setText(quizAnswerTextArea.getText());
 			answer.setQuestionId(currentQuestion.getId());
 			answer.setStudent(currentStudent.getName());
 			currentStudent.incrementTotalAnswers();
@@ -688,7 +689,8 @@ public class LoginPaneController{
 		b = getAnswerValidity(choices);
 		newChoices.clear();
 		newChoicesPane.getChildren().clear();
-		answer=new MCQAnswer(choicesId);
+		answer=new MCQAnswer();
+		answer.setChoices(choicesId);
 		answer.setQuestionId(currentQuestion.getId());
 		answer.setStudent(currentStudent.getName());
 		answer.setValid(b);

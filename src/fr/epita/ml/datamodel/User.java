@@ -1,5 +1,8 @@
 package fr.epita.ml.datamodel;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * User class with getters and setters for private variables
  * @author Mardo.Lucas
@@ -61,6 +64,22 @@ public class User {
 	}
 	public int getQuestionCounter() {
 		return 0;
+	}
+	public Quiz getQuiz() {
+		return null;
+	}
+	public void setQuiz(Quiz quiz) {
+	}
+	public List<Question> getQuestions() {
+		return Collections.emptyList();
+	}
+	public void setQuestions(List<Question> questions) {
+	}
+	
+	public List<Answer> getAnswers() {
+		return Collections.emptyList();
+	}
+	public void setAnswers(List<Answer> answers) {
 	}
 	
 
