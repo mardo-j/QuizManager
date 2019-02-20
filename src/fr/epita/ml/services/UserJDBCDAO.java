@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.Quiz;
-import fr.epita.quiz.datamodel.Student;
-import fr.epita.quiz.datamodel.User;
+import fr.epita.ml.datamodel.Quiz;
+import fr.epita.ml.datamodel.Student;
+import fr.epita.ml.datamodel.User;
 
 public class UserJDBCDAO {
 	

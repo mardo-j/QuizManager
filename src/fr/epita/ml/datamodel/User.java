@@ -1,4 +1,4 @@
-package fr.epita.quiz.datamodel;
+package fr.epita.ml.datamodel;
 
 /**
  * User class with getters and setters for private variables

@@ -1,4 +1,4 @@
-package fr.epita.quiz.datamodel;
+package fr.epita.ml.datamodel;
 
 public class Professor extends User{
 

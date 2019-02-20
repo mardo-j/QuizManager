@@ -1,4 +1,4 @@
-package fr.epita.quiz.datamodel;
+package fr.epita.ml.datamodel;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

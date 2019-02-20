@@ -1,4 +1,4 @@
-package fr.epita.quiz.launcher;
+package fr.epita.ml.launcher;
 
 import fr.epita.logger.Logger;
 import javafx.application.Application;

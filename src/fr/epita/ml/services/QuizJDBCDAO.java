@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,8 +14,8 @@ import java.util.List;
 
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.Question;
-import fr.epita.quiz.datamodel.Quiz;
+import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.datamodel.Quiz;
 
 public class QuizJDBCDAO {
 

@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.io.File;
 import java.io.FileInputStream;

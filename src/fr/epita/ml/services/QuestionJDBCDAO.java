@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.MCQChoice;
-import fr.epita.quiz.datamodel.MCQQuestion;
-import fr.epita.quiz.datamodel.Question;
-import fr.epita.quiz.datamodel.Quiz;
+import fr.epita.ml.datamodel.MCQChoice;
+import fr.epita.ml.datamodel.MCQQuestion;
+import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.datamodel.Quiz;
 
 public class QuestionJDBCDAO {
 	String topics="topics";

@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.MCQQuestion;
+import fr.epita.ml.datamodel.MCQQuestion;
 
 public class MCQQuestionDAO {
 	

@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,15 +20,15 @@ import java.util.stream.Collectors;
 
 import javax.swing.*;
 
-import fr.epita.quiz.datamodel.Answer;
-import fr.epita.quiz.datamodel.Encryption;
-import fr.epita.quiz.datamodel.MCQAnswer;
-import fr.epita.quiz.datamodel.MCQChoice;
-import fr.epita.quiz.datamodel.MCQQuestion;
-import fr.epita.quiz.datamodel.Question;
-import fr.epita.quiz.datamodel.Quiz;
-import fr.epita.quiz.datamodel.Student;
-import fr.epita.quiz.datamodel.User;
+import fr.epita.ml.datamodel.Answer;
+import fr.epita.ml.datamodel.Encryption;
+import fr.epita.ml.datamodel.MCQAnswer;
+import fr.epita.ml.datamodel.MCQChoice;
+import fr.epita.ml.datamodel.MCQQuestion;
+import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.datamodel.Quiz;
+import fr.epita.ml.datamodel.Student;
+import fr.epita.ml.datamodel.User;
 
 
 public class GUIDAO implements ActionListener {
@@ -379,7 +379,7 @@ public class GUIDAO implements ActionListener {
 	private void getUserMCQAnswer(User student,Map<Integer, JCheckBox> cb, List<MCQChoice> choicesId, List<MCQChoice> choices) {
 		
 
-		student.clearChoices();
+		student.setValid(true);
 		for (Map.Entry<Integer, JCheckBox> entry : cb.entrySet())
 		{
 			
@@ -391,14 +391,16 @@ public class GUIDAO implements ActionListener {
 			Map.Entry<Integer, JCheckBox> entry) {
 		for(MCQChoice choice: choices) {
 			if(choice.getId()==entry.getKey()) {
-				if(entry.getValue().isSelected()) {
-					if(choice.isValid()) {
-						student.incrementUserChoice();
-					}
+				if (entry.getValue().isSelected()) {
 					choicesId.add(choice);
+					if(!choice.isValid()) {
+						student.setValid(false);
+					}
+				}else {
+					if(choice.isValid()) {
+						student.setValid(false);
+					}
 				}
-				if(choice.isValid())
-					student.incrementValidChoice();
 			}
 		}
 	}

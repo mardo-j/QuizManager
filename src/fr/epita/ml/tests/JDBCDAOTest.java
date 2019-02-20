@@ -1,13 +1,12 @@
-package fr.epita.quiz.tests.xml;
-
-import fr.epita.quiz.services.QuestionJDBCDAO;
+package fr.epita.ml.tests;
 
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.Question;
+import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.services.QuestionJDBCDAO;
 
 public class JDBCDAOTest {
 

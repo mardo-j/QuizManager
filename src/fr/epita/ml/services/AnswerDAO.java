@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,12 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.Answer;
-import fr.epita.quiz.datamodel.MCQAnswer;
-import fr.epita.quiz.datamodel.MCQChoice;
-
+import fr.epita.ml.datamodel.Answer;
+import fr.epita.ml.datamodel.MCQAnswer;
+import fr.epita.ml.datamodel.MCQChoice;
+/**
+ * AnswerDAO class with methods to query the database
+ * @author Mardo.Lucas
+ *
+ */
 public class AnswerDAO {
-
+	/**
+	 * create method to insert the student's open answer into the database
+	 * 
+	 * @param answer User's open answer
+	 */
 	public void create(Answer answer) {
 		String sqlCommand = "INSERT INTO STUDENT_ANSWERS(student_name,question_id,answer) VALUES (?,?,?)";
 		try (Connection connection = getConnection();
@@ -31,7 +39,11 @@ public class AnswerDAO {
 		}
 
 	}
-
+	/**
+	 * create method to insert the student's MCQ answer into the database
+	 * 
+	 * @param answer User's MCQ answer
+	 */
 	public void create(MCQAnswer answer) {
 		String sqlCommand = "INSERT INTO STUDENT_ANSWERS(student_name,question_id,answer) VALUES (?,?,?)";
 		try (Connection connection = getConnection();
@@ -52,22 +64,28 @@ public class AnswerDAO {
 		}
 
 	}
+	/**
+	 * update method to update the student's open answer into the database
+	 * 
+	 * @param answer User's open answer
+	 */
+//	public void update(Answer answer) {
+//			String updateQuery = "UPDATE STUDENT_ANSWERS SET student_name=?,question_id=?,answer=? WHERE ID=?";
+//			try (Connection connection = getConnection();
+//				PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
+//				updateStatement.setString(1, answer.getStudent());
+//				updateStatement.setInt(2, answer.getQuestionId());
+//				updateStatement.setString(3, answer.getText());
+//				updateStatement.setInt(4, answer.getId());
+//				updateStatement.execute();
+//			}catch (SQLException e) {
+//				Logger.logMessage("Error updating STUDENT_ANSWERS");
+//			}
+//	}
 
-	public void update(Answer answer) {
-			String updateQuery = "UPDATE STUDENT_ANSWERS SET student_name=?,question_id=?,answer=? WHERE ID=?";
-			try (Connection connection = getConnection();
-				PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
-				updateStatement.setString(1, answer.getStudent());
-				updateStatement.setInt(2, answer.getQuestionId());
-				updateStatement.setString(3, answer.getText());
-				updateStatement.setInt(4, answer.getId());
-				updateStatement.execute();
-			}catch (SQLException e) {
-				Logger.logMessage("Error updating STUDENT_ANSWERS");
-			}
-	}
-
-
+	/**
+	 * getConnection method to to connect to the database
+	 */
 	private Connection getConnection() throws SQLException {
 		Configuration conf = Configuration.getInstance();
 		String jdbcUrl = conf.getConfigurationValue("jdbc.url");
@@ -75,7 +93,11 @@ public class AnswerDAO {
 		String password = conf.getConfigurationValue("jdbc.password");
 		return DriverManager.getConnection(jdbcUrl, user, password);
 	}
-
+	/**
+	 * delete method to delete the student's answer from the database
+	 * 
+	 * @param answer User's answer
+	 */
 	public void delete(Answer answer) {
 		String deleteQuery = "DELETE STUDENT_ANSWERS WHERE ID=?";
 		try (Connection connection = getConnection();
@@ -86,7 +108,11 @@ public class AnswerDAO {
 			Logger.logMessage("Error deleting STUDENT_ANSWERS");
 		}
 	}
-
+	/**
+	 * search method to search for the student's answer(s) on the database
+	 * 
+	 * @param answer User's answer
+	 */
 	public List<Answer> search(Answer answer) {
 		List<Answer> resultList = new ArrayList<>();
 		String selectQuery = "select id,student_name,question_id,answer from STUDENT_ANSWERS WHERE label like ?";
@@ -101,6 +127,12 @@ public class AnswerDAO {
 		}
 		return resultList;
 	}
+	/**
+	 * prepareTryStatement method to execute query on the database and retrieve results
+	 * 
+	 * @param resultList List of results from the query
+	 * @param preparedStatement SQL query statement
+	 */
 	private void prepareTryStatement(List<Answer> resultList, PreparedStatement preparedStatement) {
 		try(ResultSet results = preparedStatement.executeQuery();){
 			while (results.next()) {
@@ -110,6 +142,12 @@ public class AnswerDAO {
 			Logger.logMessage("Error preparing try statement query execution STUDENT_ANSWERS");
 		}
 	}
+	/**
+	 * addToResultList method to add new results to a list of results
+	 * 
+	 * @param resultList List of results to receive new results
+	 * @param results New results to be added to the existing list
+	 */
 	private void addToResultList(List<Answer> resultList, ResultSet results) throws SQLException {
 			Answer q = new Answer(
 				results.getString("text")

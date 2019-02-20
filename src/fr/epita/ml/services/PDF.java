@@ -1,4 +1,4 @@
-package fr.epita.quiz.services;
+package fr.epita.ml.services;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,9 +19,9 @@ import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.MCQChoice;
-import fr.epita.quiz.datamodel.Question;
-import fr.epita.quiz.datamodel.Quiz;
+import fr.epita.ml.datamodel.MCQChoice;
+import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.datamodel.Quiz;
 
 
 public class PDF {

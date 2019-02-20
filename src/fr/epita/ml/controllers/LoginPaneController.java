@@ -1,4 +1,4 @@
-package fr.epita.quiz.controller;
+package fr.epita.ml.controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,20 +12,20 @@ import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
 
 import fr.epita.logger.Logger;
-import fr.epita.quiz.datamodel.Answer;
-import fr.epita.quiz.datamodel.Encryption;
-import fr.epita.quiz.datamodel.MCQAnswer;
-import fr.epita.quiz.datamodel.MCQChoice;
-import fr.epita.quiz.datamodel.MCQQuestion;
-import fr.epita.quiz.datamodel.Question;
-import fr.epita.quiz.datamodel.Quiz;
-import fr.epita.quiz.datamodel.Student;
-import fr.epita.quiz.datamodel.User;
-import fr.epita.quiz.services.AnswerDAO;
-import fr.epita.quiz.services.MCQQuestionDAO;
-import fr.epita.quiz.services.QuestionJDBCDAO;
-import fr.epita.quiz.services.QuizJDBCDAO;
-import fr.epita.quiz.services.UserJDBCDAO;
+import fr.epita.ml.datamodel.Answer;
+import fr.epita.ml.datamodel.Encryption;
+import fr.epita.ml.datamodel.MCQAnswer;
+import fr.epita.ml.datamodel.MCQChoice;
+import fr.epita.ml.datamodel.MCQQuestion;
+import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.datamodel.Quiz;
+import fr.epita.ml.datamodel.Student;
+import fr.epita.ml.datamodel.User;
+import fr.epita.ml.services.AnswerDAO;
+import fr.epita.ml.services.MCQQuestionDAO;
+import fr.epita.ml.services.QuestionJDBCDAO;
+import fr.epita.ml.services.QuizJDBCDAO;
+import fr.epita.ml.services.UserJDBCDAO;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -743,22 +743,26 @@ public class LoginPaneController{
 		 }else{
 			 if(freeName.getText()!=null&&!freeName.getText().isEmpty()) {
 				 
-				currentStudent = new Student(freeName.getText());
 				QuestionJDBCDAO dao = new QuestionJDBCDAO();
 				questions = dao.getQuizQuestions(new Question("", topics,(int)diffSlider.getValue(), 0));
-				currentQuiz = new Quiz("Free Test");
-				currentQuiz.setQuestions(questions);
-				UserJDBCDAO userdao = new UserJDBCDAO();
-				userdao.create(currentStudent);
-				userdao.studentQuizTaken(currentStudent, currentQuiz);
-				mainTabPane.getSelectionModel().select(1);
-				studentLoginPane.setVisible(false);
-				quizTitledPane.setExpanded(true);
-				quizTitledPane.setText(quizName.getText()+"Free Test "+topics.toString()+" Diff: "+(int)diffSlider.getValue()+" By: "+freeName.getText());
-				nextQuestionBtn();
-				freeName.setText("");
-				freeTestTabBtn.setDisable(true);
-				professorTabBtn.setDisable(true);
+				if(questions.isEmpty()) {
+					alertInfo(AlertType.ERROR, ERROR, "No questions found for this selection of topics and diffculty");
+				}else {
+					currentStudent = new Student(freeName.getText());
+					currentQuiz = new Quiz("Quiz Generator");
+					currentQuiz.setQuestions(questions);
+					UserJDBCDAO userdao = new UserJDBCDAO();
+					userdao.create(currentStudent);
+					userdao.studentQuizTaken(currentStudent, currentQuiz);
+					mainTabPane.getSelectionModel().select(1);
+					studentLoginPane.setVisible(false);
+					quizTitledPane.setExpanded(true);
+					quizTitledPane.setText(currentQuiz.getTitle()+"  "+topics.toString()+" Diff: "+(int)diffSlider.getValue()+" By: "+freeName.getText());
+					nextQuestionBtn();
+					freeName.setText("");
+					freeTestTabBtn.setDisable(true);
+					professorTabBtn.setDisable(true);
+				}
 			 }
 		 }
 	}
@@ -779,6 +783,7 @@ public class LoginPaneController{
 		topicsList.setPrefHeight((double)topics.size() * 24 + 2);
 		topicsPane.getChildren().add(topicsList);
 		pf = new PasswordField();
+		pf.setPromptText("Password");
 		pf.setFont(new Font(24));
 		passwordPane.getChildren().add(pf);
 

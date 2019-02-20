@@ -1,4 +1,4 @@
-package fr.epita.quiz.datamodel;
+package fr.epita.ml.datamodel;
 
 import java.util.List;
 

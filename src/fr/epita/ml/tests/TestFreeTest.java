@@ -1,6 +1,6 @@
-package fr.epita.quiz.tests.xml;
+package fr.epita.ml.tests;
 
-import fr.epita.quiz.services.GUIDAO;
+import fr.epita.ml.services.GUIDAO;
 
 public class TestFreeTest {
 
