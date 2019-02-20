@@ -703,7 +703,7 @@ public class GUIDAO implements ActionListener {
 			b15.addActionListener( e -> quizPanel(q1) );
 			JButton b16=new JButton("Export");
 			PDF pdf = new PDF();
-			b16.addActionListener( e -> pdf.exportPDF(q1) );
+			b16.addActionListener( e -> pdf.exportQuizPDF(q1) );
 			pbuttons.add(b16);
 			pbuttons.add(b15);
 			p11.add(pbuttons,BorderLayout.EAST);
