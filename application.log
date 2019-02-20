@@ -150,3 +150,42 @@ select id,title from QUIZ WHERE TITLE like ? [42102-197]
 2019-02-19_16:41:27,466 Error select new image
 2019-02-19_16:41:31,022 Error select new image
 2019-02-19_16:50:29,749 Error select new image
+2019-02-19_22:55:43,095 Error creating question
+2019-02-19_22:57:04,161 Error creating question Value too long for column "LABEL VARCHAR(255)": "'newCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCreateBtnnewCrea... (1092)"; SQL statement:
+INSERT INTO QUESTION(label,difficulty,topics,image) VALUES (?,?,?,?) [22001-197]
+2019-02-19_23:02:20,772 Error selecting topics from questions
+2019-02-19_23:02:44,015 Error creating question Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]
+2019-02-19_23:02:47,032 Error searching question
+2019-02-19_23:02:49,245 Error searching question
+2019-02-19_23:02:49,936 Error searching question
+2019-02-19_23:02:50,342 Error searching question
+2019-02-19_23:02:50,350 Error searching question
+2019-02-19_23:02:50,816 Error searching question
+2019-02-19_23:02:50,825 Error searching quiz Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]
+2019-02-19_23:02:51,238 Error searching quiz Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]
+2019-02-19_23:02:51,710 Error searching quiz Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]
+2019-02-19_23:02:52,158 Error searching quiz Database may be already in use: null. Possible solutions: close all other connection(s); use the server mode [90020-197]
+2019-02-19_23:02:52,165 Error searching question
+2019-02-19_23:02:52,586 Error searching question
+2019-02-19_23:02:52,593 Error searching question
+2019-02-19_23:02:53,362 Error searching question
+2019-02-19_23:04:13,695 Error setting image to question
+2019-02-19_23:04:34,901 Error setting image to question
+2019-02-19_23:32:05,671 Error setting image to question
+2019-02-19_23:32:08,771 Error setting image to question
+2019-02-19_23:32:19,490 Error setting image to question
+2019-02-19_23:32:23,510 Error setting image to question
+2019-02-20_00:04:56,821 Error setting image to question
+2019-02-20_00:05:03,536 Error setting image to question
+2019-02-20_00:46:01,501 Error selecting topics from questions
+2019-02-20_00:46:50,975 Error setting image to question
+2019-02-20_00:46:56,620 Error setting image to question
+2019-02-20_00:47:54,120 Error setting image to question
+2019-02-20_00:51:10,459 Error adding image2 C:\Users\SARAH\Documents\46277552_2495114427188655_3120258994258575360_n.jpg (O sistema não pode encontrar o caminho especificado)
+2019-02-20_00:51:13,102 Error adding image2 C:\Users\SARAH\Documents\46277552_2495114427188655_3120258994258575360_n.jpg (O sistema não pode encontrar o caminho especificado)
+2019-02-20_00:52:02,840 Error adding image2 C:\Users\SARAH\Documents\46277552_2495114427188655_3120258994258575360_n.jpg (O sistema não pode encontrar o caminho especificado)
+2019-02-20_01:12:13,072 Error selecting topics from questions
+2019-02-20_01:12:19,455 Error searching question
+2019-02-20_01:12:20,263 Error searching question
+2019-02-20_01:12:20,267 Error searching quiz null
+2019-02-20_01:12:43,391 Error selecting topics from questions

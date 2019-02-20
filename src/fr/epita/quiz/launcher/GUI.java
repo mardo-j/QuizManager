@@ -12,7 +12,7 @@ public class GUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			System.setProperty("conf.location","app.properties");
+
 	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main_pane.fxml"));
 	        Parent root1 =  fxmlLoader.load();
 	        
@@ -24,7 +24,7 @@ public class GUI extends Application {
 	        stage.show();
 	        
 	    } catch(Exception e) {
-	        Logger.logMessage("ERROR in starting GUI");
+	        Logger.logMessage("ERROR starting GUI");
 	    }
 
 	}

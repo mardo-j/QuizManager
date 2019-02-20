@@ -35,7 +35,7 @@ public class QuestionJDBCDAO {
 			insertStatement.execute();
 
 		} catch (SQLException e) {
-			Logger.logMessage("Error creating question");
+			Logger.logMessage("Error creating question "+e.getMessage());
 		}
 
 	}
