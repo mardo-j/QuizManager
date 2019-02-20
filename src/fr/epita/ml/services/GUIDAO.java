@@ -30,7 +30,11 @@ import fr.epita.ml.datamodel.Quiz;
 import fr.epita.ml.datamodel.Student;
 import fr.epita.ml.datamodel.User;
 
-
+/**
+ * 
+ * @author Mardo.Lucas
+ *
+ */
 public class GUIDAO implements ActionListener {
 	private static final String SEARCH = "Search";
 	JFrame f;

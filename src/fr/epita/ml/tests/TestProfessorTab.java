@@ -2,7 +2,7 @@ package fr.epita.ml.tests;
 
 import fr.epita.ml.services.GUIDAO;
 
-public class TestCreateNewQuestion {
+public class TestProfessorTab {
 
 	public static void main(String[] args) {
 

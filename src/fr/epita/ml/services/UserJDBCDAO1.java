@@ -18,7 +18,11 @@ import fr.epita.ml.datamodel.Question;
 import fr.epita.ml.datamodel.Quiz;
 import fr.epita.ml.datamodel.Student;
 import fr.epita.ml.datamodel.User;
-
+/**
+ * UserJDBCDAO class with methods to query the database
+ * @author Mardo.Lucas
+ *
+ */
 public class UserJDBCDAO {
 	
 
@@ -75,7 +79,7 @@ public class UserJDBCDAO {
 
 	public List<Student> search(User user) {
 		List<Student> resultList = new ArrayList<>();
-		String selectQuery = "select user.id,user.name,student_quiz.quiz_name from USER left join student_quiz on user.name=student_quiz.student_name WHERE user.name like ? and admin<>1 order by user.id desc";
+		String selectQuery = "select user.id,user.name,student_quiz.quiz_name from USER left join student_quiz on user.name=student_quiz.student_name WHERE user.name like ? order by user.id desc";
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
 				) {

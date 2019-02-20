@@ -27,15 +27,11 @@ import fr.epita.ml.datamodel.Quiz;
 import fr.epita.ml.datamodel.User;
 
 /**
- * PDF Class contains methods to export Quizzes and Answers as PDF format
+ * PDF class with methods to export quizzes and students answers
  * @author Mardo.Lucas
  *
  */
 public class PDF {
-	/**
-	 * Exports a given quiz as PDF format
-	 * @param quiz
-	 */
 	public void exportQuizPDF(Quiz quiz) {
 		Document document = new Document();
 		try {
@@ -80,10 +76,6 @@ public class PDF {
 		}
 		document.close();
 	}
-	/**
-	 * Exports a given students answers as PDF format
-	 * @param student
-	 */
 	public void exportStudentPDF(User student) {
 		Document document = new Document();
 		try {

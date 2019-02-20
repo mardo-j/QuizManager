@@ -15,12 +15,9 @@ public class JDBCDAOTest {
 	public static void main(String[] args) throws SQLException {
 		QuestionJDBCDAO jd = new QuestionJDBCDAO();
 
-		List<Question> lq = jd.search(new Question("",null,null,0));
-		Logger.logMessage(lq.toString());
-		lq = jd.getQuestionsByDifficulty(2);
-		Logger.logMessage(lq.toString());
-		lq = jd.getQuestionsByTopic(Arrays.asList("Java","Syntax"));
-		Logger.logMessage(lq.toString());
+		Logger.logMessage(jd.search(new Question("",null,null,0)).toString());
+		Logger.logMessage(jd.getQuestionsByDifficulty(1).toString());
+		Logger.logMessage(jd.getQuestionsByTopic(Arrays.asList("Char","Double")).toString());
 		
 		
 		UserJDBCDAO ud = new UserJDBCDAO();

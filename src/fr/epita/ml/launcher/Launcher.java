@@ -30,6 +30,7 @@ public class Launcher extends Application {
 	}
 
 	public static void main(String[] args) {
+		System.setProperty("conf.location",args[0]);
 		launch(args);
 	}
 }
