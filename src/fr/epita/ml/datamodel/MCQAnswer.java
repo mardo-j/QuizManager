@@ -20,10 +20,11 @@ public class MCQAnswer extends Answer{
 	 */
 	public MCQAnswer() {
 	}
-	
+	@Override
 	public List<MCQChoice> getChoices() {
 		return choices;
 	}
+	@Override
 	public void setChoices(List<MCQChoice> choices) {
 		this.choices = choices;
 	}	
@@ -39,9 +40,11 @@ public class MCQAnswer extends Answer{
 	public void setStudent(String student) {
 		this.student = student;
 	}
+	@Override
 	public boolean isValid() {
 		return valid;
 	}
+	@Override
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}

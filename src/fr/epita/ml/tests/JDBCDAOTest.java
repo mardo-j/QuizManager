@@ -6,7 +6,9 @@ import java.util.List;
 
 import fr.epita.logger.Logger;
 import fr.epita.ml.datamodel.Question;
+import fr.epita.ml.datamodel.User;
 import fr.epita.ml.services.QuestionJDBCDAO;
+import fr.epita.ml.services.UserJDBCDAO;
 
 public class JDBCDAOTest {
 
@@ -15,9 +17,13 @@ public class JDBCDAOTest {
 
 		List<Question> lq = jd.search(new Question("",null,null,0));
 		Logger.logMessage(lq.toString());
-		lq = jd.getQuestionsByDifficulty(3);
+		lq = jd.getQuestionsByDifficulty(2);
 		Logger.logMessage(lq.toString());
 		lq = jd.getQuestionsByTopic(Arrays.asList("Java","Syntax"));
 		Logger.logMessage(lq.toString());
+		
+		
+		UserJDBCDAO ud = new UserJDBCDAO();
+		Logger.logMessage(ud.search(new User("")).toString());
 	}
 }

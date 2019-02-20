@@ -1,4 +1,7 @@
 package fr.epita.ml.datamodel;
+
+import java.util.List;
+
 /**
  * Answer class with getters and setters for private variables
  * @author Mardo.Lucas
@@ -48,9 +51,25 @@ public class Answer {
 	/**
 	 * Answer toString method
 	 */
-	@Override
 	public String toString() {
-		return "Answer [text=" + text + ", questionId=" + questionId + ", student=" + student + "]";
+		return "Answer [text=" + text + ", student=" + student + "]";
+	}
+
+	public void setChoices(List<MCQChoice> choices) {
+	}
+
+
+
+	public List<MCQChoice> getChoices() {
+		return null;
+	}
+
+	public void setValid(boolean b) {
+	}
+
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	
