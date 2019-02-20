@@ -104,7 +104,9 @@ public class QuizJDBCDAO {
 			Logger.logMessage("Error deleting quiz questions in update method");
 		}
 	}
-
+	/**
+	 * getConnection method to to connect to the database
+	 */
 	private Connection getConnection() throws SQLException {
 		Configuration conf = Configuration.getInstance();
 		String jdbcUrl = conf.getConfigurationValue("jdbc.url");

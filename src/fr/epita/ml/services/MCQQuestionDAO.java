@@ -86,6 +86,9 @@ public class MCQQuestionDAO {
 			Logger.logMessage("Error delete MCQQuestion");
 		}
 	}
+	/**
+	 * getConnection method to to connect to the database
+	 */
 	private Connection getConnection() throws SQLException {
 		Configuration conf = Configuration.getInstance();
 		String jdbcUrl = conf.getConfigurationValue("jdbc.url");

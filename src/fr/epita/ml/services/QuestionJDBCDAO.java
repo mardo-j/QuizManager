@@ -71,7 +71,9 @@ public class QuestionJDBCDAO {
 			Logger.logMessage("Error deleting question choices");
 		}
 	}
-
+	/**
+	 * getConnection method to to connect to the database
+	 */
 	private Connection getConnection() throws SQLException {
 		Configuration conf = Configuration.getInstance();
 		String jdbcUrl = conf.getConfigurationValue("jdbc.url");
