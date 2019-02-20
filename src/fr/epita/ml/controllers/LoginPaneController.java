@@ -23,6 +23,7 @@ import fr.epita.ml.datamodel.Student;
 import fr.epita.ml.datamodel.User;
 import fr.epita.ml.services.AnswerDAO;
 import fr.epita.ml.services.MCQQuestionDAO;
+import fr.epita.ml.services.PDF;
 import fr.epita.ml.services.QuestionJDBCDAO;
 import fr.epita.ml.services.QuizJDBCDAO;
 import fr.epita.ml.services.UserJDBCDAO;
@@ -223,7 +224,7 @@ public class LoginPaneController{
 	@FXML
 	protected void viewQuizDeleteBtn(){
 		Quiz quiz;
-		if(newQuizTitleBtn.isSelected()) {
+		if(viewQuizTitleBtn.isSelected()) {
 			quiz=quizz.get(quizListString.getSelectionModel().getSelectedIndex());
 		}else {
 			quiz=quizz.get(quizList.getSelectionModel().getSelectedIndex());
@@ -233,7 +234,12 @@ public class LoginPaneController{
 			QuizJDBCDAO quidao = new QuizJDBCDAO();
 			quidao.delete(quiz);
 			alertInfo(AlertType.INFORMATION,getQuizName("Deleted"),getQuizName(quiz.getTitle())+" is deleted successfully");
-			quizList.getItems().remove(quizList.getSelectionModel().getSelectedIndex());
+			if(viewQuizTitleBtn.isSelected()) {
+				quizListString.getItems().remove(quizListString.getSelectionModel().getSelectedIndex());
+			}else {
+				quizList.getItems().remove(quizList.getSelectionModel().getSelectedIndex());
+			}
+			
 		} else {
 			alertInfo(AlertType.INFORMATION, "Thanks there is confirmation", "I knew you did it unintentionally");
 		}
@@ -286,11 +292,20 @@ public class LoginPaneController{
 	}
 	@FXML
 	protected void viewQuizExportBtn(){
-		
+		Quiz quiz;
+		if(viewQuizTitleBtn.isSelected()) {
+			quiz=quizz.get(quizListString.getSelectionModel().getSelectedIndex());
+		}else {
+			quiz=quizz.get(quizList.getSelectionModel().getSelectedIndex());
+		}
+		PDF pdf = new PDF();
+		pdf.exportQuizPDF(quiz);
 	}
 	@FXML
 	protected void viewStudentExportBtn(){
-		
+		Student student=studentsList.getSelectionModel().getSelectedItem();
+		PDF pdf = new PDF();
+		pdf.exportStudentPDF(student);
 	}
 	@FXML
 	protected void viewUsersTab(){
@@ -300,15 +315,13 @@ public class LoginPaneController{
 	protected void viewStudentSearchBtn(){
 		viewGetUsers(viewStudentSearchTextField.getText());
 	}
-	@FXML
-	protected void viewStudentSearchTextField(){
-		viewGetUsers("");
-	}
+	
 	protected void viewGetUsers(String studentName) {
 		UserJDBCDAO userDAO = new UserJDBCDAO();
 		students = userDAO.search(new Student(studentName));
 		studentsList = new ListView<>(FXCollections.observableArrayList(students));
 		studentsList.setPrefHeight(students.size() * (double)24 + 24);
+		studentsList.setPrefWidth((double)480);
 		viewUsersScrollPane.getChildren().clear();
 		viewUsersScrollPane.getChildren().add(studentsList);
 	}
@@ -403,7 +416,12 @@ public class LoginPaneController{
 			QuestionJDBCDAO dao = new QuestionJDBCDAO();
 			dao.delete(question);
 			alertInfo(AlertType.INFORMATION,"Question Deleted","Question "+question.getQuestion()+" is deleted successfully");
-			questionsList.getItems().remove(questionsList.getSelectionModel().getSelectedIndex());
+			if(newQuestionTitleBtn.isSelected()) {
+				questionsStringList.getItems().remove(questionsStringList.getSelectionModel().getSelectedIndex());
+			}else {
+				questionsList.getItems().remove(questionsList.getSelectionModel().getSelectedIndex());
+			}
+//			questionsList.getItems().remove(questionsList.getSelectionModel().getSelectedIndex());
 		} else {
 			alertInfo(AlertType.INFORMATION, "Thanks there is confirmation", "I knew you did it unintentionally");
 		}
@@ -762,6 +780,30 @@ public class LoginPaneController{
 		dialog.setContentText(content);
 		 
 		return dialog.showAndWait();
+	}
+	@FXML
+    protected void exportFreeTest() {
+		List<String> topics = new ArrayList<>();
+		 for(CheckBox c : cb) {
+			 if(c.isSelected()) {
+				 topics.add(c.getText());
+			 }
+		 }
+		 if(topics.isEmpty()) {
+			 alertInfo(AlertType.ERROR, ERROR,"Select at least one topic");
+		 }else{
+			QuestionJDBCDAO dao = new QuestionJDBCDAO();
+			List<Question> questions1 = dao.getQuizQuestions(new Question("", topics,(int)diffSlider.getValue(), 0));
+			if(questions1.isEmpty()) {
+				alertInfo(AlertType.ERROR, ERROR, "No questions found for this selection of topics and diffculty");
+			}else {
+				Quiz quiz = new Quiz("Quiz Generator");
+				quiz.setQuestions(questions1);
+				PDF pdf = new PDF();
+				pdf.exportQuizPDF(quiz);
+			}
+		 }
+		 
 	}
 	@FXML
     protected void startFreeTest() {

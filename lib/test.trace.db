@@ -20125,3 +20125,151 @@ org.h2.jdbc.JdbcSQLException: Column "mcq" not found [42122-197]
 	at fr.epita.ml.services.QuestionJDBCDAO.prepareTryStatement(QuestionJDBCDAO.java:189)
 	at fr.epita.ml.services.QuestionJDBCDAO.getQuestionsByDifficulty(QuestionJDBCDAO.java:179)
 	at fr.epita.ml.tests.JDBCDAOTest.main(JDBCDAOTest.java:20)
+2019-02-20 21:02:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "mcq" not found [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3247)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:346)
+	at fr.epita.ml.services.QuestionJDBCDAO.addToResultList(QuestionJDBCDAO.java:208)
+	at fr.epita.ml.services.QuestionJDBCDAO.prepareTryStatement(QuestionJDBCDAO.java:189)
+	at fr.epita.ml.services.QuestionJDBCDAO.getQuestionsByDifficulty(QuestionJDBCDAO.java:179)
+	at fr.epita.ml.tests.JDBCDAOTest.main(JDBCDAOTest.java:20)
+2019-02-20 21:35:58 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/SARAH/git/QuizManager/lib/test.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:307)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2506)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:383)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:364)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2934)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:155)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:100)
+	at org.h2.engine.Database.getPageStore(Database.java:2538)
+	at org.h2.engine.Database.open(Database.java:709)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.epita.ml.services.QuestionJDBCDAO.getConnection(QuestionJDBCDAO.java:82)
+	at fr.epita.ml.services.QuestionJDBCDAO.getTopics(QuestionJDBCDAO.java:246)
+	at fr.epita.ml.controllers.LoginPaneController.initialize(LoginPaneController.java:810)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.reflect.misc.Trampoline.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.reflect.misc.MethodUtil.invoke(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2566)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441)
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2409)
+	at fr.epita.ml.launcher.Launcher.start(Launcher.java:17)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$161(LauncherImpl.java:863)
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$174(PlatformImpl.java:326)
+	at com.sun.javafx.application.PlatformImpl.lambda$null$172(PlatformImpl.java:295)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$173(PlatformImpl.java:294)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$null$147(WinApplication.java:177)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/SARAH/git/QuizManager/lib/test.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/SARAH/git/QuizManager/lib/test.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
+	at org.h2.mvstore.FileStore.open(FileStore.java:173)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
+	... 43 more
+2019-02-20 22:15:30 database: flush
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/SARAH/git/QuizManager/lib/test.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.message.DbException.convert(DbException.java:307)
+	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:2506)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:383)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:364)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2934)
+	at org.h2.mvstore.db.MVTableEngine$Store.open(MVTableEngine.java:155)
+	at org.h2.mvstore.db.MVTableEngine.init(MVTableEngine.java:100)
+	at org.h2.engine.Database.getPageStore(Database.java:2538)
+	at org.h2.engine.Database.open(Database.java:709)
+	at org.h2.engine.Database.openDatabase(Database.java:286)
+	at org.h2.engine.Database.<init>(Database.java:280)
+	at org.h2.engine.Engine.openSession(Engine.java:66)
+	at org.h2.engine.Engine.openSession(Engine.java:179)
+	at org.h2.engine.Engine.createSessionAndValidate(Engine.java:157)
+	at org.h2.engine.Engine.createSession(Engine.java:140)
+	at org.h2.engine.Engine.createSession(Engine.java:28)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:351)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:103)
+	at org.h2.Driver.connect(Driver.java:69)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at fr.epita.ml.services.QuestionJDBCDAO.getConnection(QuestionJDBCDAO.java:82)
+	at fr.epita.ml.services.QuestionJDBCDAO.getTopics(QuestionJDBCDAO.java:246)
+	at fr.epita.ml.controllers.LoginPaneController.initialize(LoginPaneController.java:849)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.reflect.misc.Trampoline.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.reflect.misc.MethodUtil.invoke(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2566)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441)
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2409)
+	at fr.epita.ml.launcher.Launcher.start(Launcher.java:17)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$161(LauncherImpl.java:863)
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$174(PlatformImpl.java:326)
+	at com.sun.javafx.application.PlatformImpl.lambda$null$172(PlatformImpl.java:295)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$173(PlatformImpl.java:294)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$null$147(WinApplication.java:177)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/SARAH/git/QuizManager/lib/test.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 49 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/SARAH/git/QuizManager/lib/test.mv.db [1.4.197/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
+	at org.h2.mvstore.FileStore.open(FileStore.java:173)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
+	... 43 more
+2019-02-20 22:17:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "STUDENT_QUIZ[*]"; expected "SELECT, SET, SAVEPOINT, SCRIPT, SHUTDOWN, SHOW, {"; SQL statement:
+STUDENT_QUIZ [42001-197]
+2019-02-20 22:17:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (USER: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_81F6F658_3D4B_463D_8A1F_3BEF49CB304D) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_81F6F658_3D4B_463D_8A1F_3BEF49CB304D)"; SQL statement:
+INSERT INTO "PUBLIC"."USER"("ID","NAME","ADMIN","PASSWORD")VALUES(?,?,?,?) -- (?1, ?2, ?3, ?4) [22018-197]
+2019-02-20 22:17:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (USER: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_81F6F658_3D4B_463D_8A1F_3BEF49CB304D) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_81F6F658_3D4B_463D_8A1F_3BEF49CB304D)"; SQL statement:
+INSERT INTO "PUBLIC"."USER"("ID","NAME","ADMIN","PASSWORD")VALUES(?,?,?,?) -- (?1, ?2, ?3, ?4) [22018-197]
+2019-02-20 22:18:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (USER: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_67DF0EA9_6D47_4DD0_88DC_B9DABE22E643) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_67DF0EA9_6D47_4DD0_88DC_B9DABE22E643)"; SQL statement:
+INSERT INTO "PUBLIC"."USER"("ID","NAME","ADMIN","PASSWORD")VALUES(?,?,?,?) -- (?1, ?2, ?3, ?4) [22018-197]
+2019-02-20 22:18:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (USER: ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_67DF0EA9_6D47_4DD0_88DC_B9DABE22E643) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_67DF0EA9_6D47_4DD0_88DC_B9DABE22E643)"; SQL statement:
+INSERT INTO "PUBLIC"."USER"("ID","NAME","ADMIN","PASSWORD")VALUES(?,?,?,?) -- (?1, ?2, ?3, ?4) [22018-197]
+2019-02-20 22:19:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO USER(,[*]NAME,ADMIN,PASSWORD)VALUES('mardo',1,'7a22f55e2dc34998bfbd54cf1d426877')"; expected "identifier"; SQL statement:
+INSERT INTO USER(,NAME,ADMIN,PASSWORD)VALUES('mardo',1,'7a22f55e2dc34998bfbd54cf1d426877') [42001-197]

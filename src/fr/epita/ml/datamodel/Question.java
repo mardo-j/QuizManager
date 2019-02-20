@@ -71,6 +71,9 @@ public class Question {
 		this.id = id;
 	}
 
+	public void setMCQ(Integer mcq) {
+		this.mcq=mcq;
+	}
 	public boolean isMCQ() {
 		return this.mcq == 1;
 	}

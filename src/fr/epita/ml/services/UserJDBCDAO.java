@@ -132,6 +132,7 @@ public class UserJDBCDAO {
 				Question q=new Question();
 				q.setQuestion(results.getString("label"));
 				q.setImage(results.getString("image"));
+				q.setMCQ(results.getInt("mcq"));
 				resultList.add(q);
 				Answer answer;
 				if(results.getInt("mcq")==1) {

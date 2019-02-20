@@ -45,10 +45,8 @@ public class PDF {
 			Chapter chapter1 = new Chapter(title1, 1);
 			chapter1.setNumberDepth(0);
 			Paragraph title11 = new Paragraph(question.getQuestion(),FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(0, 0, 0,255)));
-			System.out.println(question.getQuestion());
 			Section section1 = chapter1.addSection(title11);
 			if(question.getImage()!=null&&!question.getImage().isEmpty()) {
-				System.out.println(question.getImage());
 				Image image2;
 				try {
 					image2 = Image.getInstance(question.getImage());
@@ -60,7 +58,6 @@ public class PDF {
 			}
 			if(question.isMCQ()) {
 				List l = new List(true, false, 10);
-				System.out.println(question.getChoices());
 				for(MCQChoice choice : question.getChoices()) {
 					l.add(new ListItem(choice.getChoice()));
 				}
@@ -87,46 +84,49 @@ public class PDF {
 		
 		document.open();
 		for(int i=0;i<student.getQuestions().size();i++) {
-			Question question = student.getQuestions().get(i);
-			Paragraph title1 = new Paragraph("Question "+(i+1),FontFactory.getFont(FontFactory.HELVETICA,18, Font.BOLDITALIC, new CMYKColor(0, 0, 0,255)));
-			Chapter chapter1 = new Chapter(title1, 1);
-			chapter1.setNumberDepth(0);
-			Paragraph title11 = new Paragraph(question.getQuestion(),FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(0, 0, 0,255)));
-			System.out.println(question.getQuestion());
-			Section section1 = chapter1.addSection(title11);
-			if(question.getImage()!=null&&!question.getImage().isEmpty()) {
-				System.out.println(question.getImage());
-				Image image2;
-				try {
-					image2 = Image.getInstance(question.getImage());
-					image2.scaleAbsolute(300f, 240f);
-					section1.add(image2);
-				} catch (BadElementException|IOException e) {
-					Logger.logMessage("Error adding image2 "+e.getMessage());
-				}
-			}
-			if(question.isMCQ()) {
-				List l = new List(true, false, 10);
-				System.out.println(question.getChoices());
-				for(MCQChoice choice : student.getAnswers().get(i).getChoices()) {
-					ListItem ll = new ListItem(choice.getChoice());
-					l.add(new ListItem(choice.getChoice()));
-					if(choice.isValid()) {
-						ll.setFont(FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(0, 255, 255,0)));
-					}else {
-						ll.setFont(FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(255, 0, 255,0)));
-					}
-				}
-				section1.add(l);
-				
-			}
-			try {
-				document.add(chapter1);
-			} catch (DocumentException e) {
-				Logger.logMessage("Error adding chapter1 "+e.getMessage());
-			}
+			getQuestionAnswers(student, document, i);
 		}
 		
 		document.close();
+	}
+	private void getQuestionAnswers(User student, Document document, int i) {
+		Question question = student.getQuestions().get(i);
+		Paragraph title1 = new Paragraph("Question "+(i+1),FontFactory.getFont(FontFactory.HELVETICA,18, Font.BOLDITALIC, new CMYKColor(0, 0, 0,255)));
+		Chapter chapter1 = new Chapter(title1, 1);
+		chapter1.setNumberDepth(0);
+		Paragraph title11 = new Paragraph(question.getQuestion(),FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(0, 0, 0,255)));
+		Section section1 = chapter1.addSection(title11);
+		if(question.getImage()!=null&&!question.getImage().isEmpty()) {
+			Image image2;
+			try {
+				image2 = Image.getInstance(question.getImage());
+				image2.scaleAbsolute(300f, 240f);
+				section1.add(image2);
+			} catch (BadElementException|IOException e) {
+				Logger.logMessage("Error adding image2 "+e.getMessage());
+			}
+		}
+		if(question.isMCQ()) {
+			List l = new List(true, false, 10);
+			for(MCQChoice choice : student.getAnswers().get(i).getChoices()) {
+				ListItem ll = new ListItem(choice.getChoice());
+				if(choice.isValid()) {
+					ll.setFont(FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(255, 0, 255,0)));
+				}else {
+					ll.setFont(FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(0, 255, 255,0)));
+				}
+				l.add(ll);
+			}
+			section1.add(l);
+			
+		}else {
+			Paragraph title12 = new Paragraph(student.getAnswers().get(i).getText(),FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD,new CMYKColor(0, 0, 0,255)));
+			section1.add(title12);
+		}
+		try {
+			document.add(chapter1);
+		} catch (DocumentException e) {
+			Logger.logMessage("Error adding chapter1 "+e.getMessage());
+		}
 	}
 }
