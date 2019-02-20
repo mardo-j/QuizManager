@@ -21,7 +21,11 @@ import fr.epita.ml.datamodel.User;
 
 public class UserJDBCDAO {
 	
-
+	/**
+	 * UserJDBCDAO class with methods to query the database
+	 * @author Mardo.Lucas
+	 *
+	 */
 	public void create(User user) {
 		String sqlCommand = "INSERT INTO USER(name,admin,password) VALUES (?,?,?)";
 		try (Connection connection = getConnection();
