@@ -1,3 +1,7 @@
+username: thomas
+password: broussard
+=)
+
 # QuizManager
 
 CREATE TABLE USER(ID INT PRIMARY KEY AUTO_INCREMENT,
