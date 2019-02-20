@@ -51,11 +51,10 @@ public class User {
 	}
 	public void incrementTotalAnswers() {
 	}
-	public void incrementValidChoice() {
+	public boolean isValid() {
+		return false;
 	}
-	public void incrementUserChoice() {
-	}
-	public void clearChoices() {
+	public void setValid(boolean valid) {
 	}
 	public boolean getChoicesValidity() {
 		return false;

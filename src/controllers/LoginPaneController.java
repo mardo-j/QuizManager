@@ -1,4 +1,4 @@
-package fr.epita.quiz.launcher;
+package fr.epita.quiz.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -554,29 +554,35 @@ public class LoginPaneController{
 		if(quizDAO.checkQuiz(quizName.getText())){
 			Optional<String> result=userInputDialog("",getQuizName(quizName.getText())+" found, get ready to start", "Enter your name", "Full name: ");
 			result.ifPresent( name -> {
-				studentLoginPane.setVisible(false);
-				
-				quizTitledPane.setExpanded(true);
-				quizTitledPane.setText(quizName.getText()+" - "+name);
-				QuestionJDBCDAO dao = new QuestionJDBCDAO();
-				currentQuiz = new Quiz(quizName.getText());
-				currentQuiz.setQuestions(dao.getClassQuestions(currentQuiz));
-				currentStudent=new Student(name);
 				UserJDBCDAO userdao = new UserJDBCDAO();
+				currentStudent=new Student(name);
 				boolean userfound=userdao.validateStudent(currentStudent);
-				if(currentQuiz.getQuestions().isEmpty()){
-					alertInfo(AlertType.ERROR,"No questions for these criterias",ERROR);
-				}else if(userfound){
-					alertInfo(AlertType.ERROR,"Name already exists",ERROR);
+				if(userfound){
+					alertInfo(AlertType.ERROR,ERROR,"Name already exists");
 					startQuiz();
-				}else{
-					userdao.create(currentStudent);
-					userdao.studentQuizTaken(currentStudent, currentQuiz);
-
-					freeTestTabBtn.setDisable(true);
-					professorTabBtn.setDisable(true);
+				}else {
+					studentLoginPane.setVisible(false);
 					
-					nextQuestionBtn();
+					quizTitledPane.setExpanded(true);
+					quizTitledPane.setText(quizName.getText()+" - "+name);
+					nextQuestionBtn.setText("Next");
+					QuestionJDBCDAO dao = new QuestionJDBCDAO();
+					currentQuiz = new Quiz(quizName.getText());
+					currentQuiz.setQuestions(dao.getClassQuestions(currentQuiz));
+					currentStudent=new Student(name);
+					
+					if(currentQuiz.getQuestions().isEmpty()){
+						alertInfo(AlertType.ERROR,ERROR,"No questions for these criterias");
+					
+					}else{
+						userdao.create(currentStudent);
+						userdao.studentQuizTaken(currentStudent, currentQuiz);
+	
+						freeTestTabBtn.setDisable(true);
+						professorTabBtn.setDisable(true);
+						
+						nextQuestionBtn();
+					}
 				}
 			});
 		}else {
@@ -613,6 +619,8 @@ public class LoginPaneController{
 				final CheckBox checkBox = new CheckBox(choice.getChoice());
 				newChoices.add(checkBox);
 			}
+
+			quizAnswerPane.getChildren().remove(newChoice);
 			newChoice = new ListView<>(FXCollections.observableArrayList(newChoices));
 			newChoice.setPrefHeight(newChoices.size() * (double)24 + 24);
 			newChoice.setPrefWidth((double)440);
@@ -689,24 +697,27 @@ public class LoginPaneController{
 	}
 	private boolean getAnswerValidity(List<MCQChoice> choices) {
 		boolean b;
-		currentStudent.clearChoices();
+		currentStudent.setValid(true);
 		for(CheckBox c : newChoices) 
 		{
 			getUserChoiceValidity(choices, c);
 		}
-		b=currentStudent.getChoicesValidity();
+		b=currentStudent.isValid();
 		return b;
 	}
 	private void getUserChoiceValidity(List<MCQChoice> choices, CheckBox c) {
 		for(MCQChoice choice: choices) {
 			if(choice.getChoice().equals(c.getText())) {
-				if (c.isSelected() && choice.isValid()) {
-					currentStudent.incrementUserChoice();
-				}else if (c.isSelected() && !choice.isValid()) {
+				if (c.isSelected()) {
 					choicesId.add(choice);
+					if(!choice.isValid()) {
+						currentStudent.setValid(false);
+					}
+				}else {
+					if(choice.isValid()) {
+						currentStudent.setValid(false);
+					}
 				}
-				if(choice.isValid())
-					currentStudent.incrementValidChoice();
 			}
 		}
 	}

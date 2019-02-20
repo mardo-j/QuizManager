@@ -12,26 +12,24 @@ public class Student extends User{
 	
 	private int questionCounter;
 	private int mCQquestionCounter;
-	private int validChoice;
+	private boolean valid;
 	
-	private int userChoice;
+	
 	public Student(String name) {
 		super(name);
 		this.totalgrade=0;
 		this.validAnswers=0;
 		this.questionCounter=0;
 		this.mCQquestionCounter=0;
-		this.validChoice=0;
-		this.userChoice=0;
+		this.valid=true;
 	}
 	@Override
-	public boolean getChoicesValidity() {
-		return this.validChoice==this.userChoice;
+	public boolean isValid() {
+		return this.valid;
 	}
 	@Override
-	public void clearChoices() {
-		this.validChoice = 0;
-		this.userChoice = 0;
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 	
 	
@@ -60,14 +58,7 @@ public class Student extends User{
 	public void incrementMCQquestionCounter() {
 		this.mCQquestionCounter++;
 	}
-	@Override
-	public void incrementValidChoice() {
-		this.validChoice++;
-	}
-	@Override
-	public void incrementUserChoice() {
-		this.userChoice++;
-	}
+	
 	@Override
 	public int getQuestionCounter() {
 		return questionCounter;

@@ -1,14 +1,35 @@
 package fr.epita.quiz.launcher;
 
-import fr.epita.quiz.services.GUIDAO;
+import fr.epita.logger.Logger;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Launcher {
+public class Launcher extends Application {
 
-	public static void main(String[] args) {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
 
-		System.setProperty("conf.location","app.properties");
-		GUIDAO gui = new GUIDAO();
-		gui.initialize();
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main_pane.fxml"));
+	        Parent root1 =  fxmlLoader.load();
+	        
+	        
+	        
+	        Stage stage = new Stage();
+	        stage.setScene(new Scene(root1));  
+	        stage.setTitle("QuizManager 1.0");
+	        stage.show();
+	        
+	    } catch(Exception e) {
+	        Logger.logMessage("ERROR starting GUI");
+	    }
+
 	}
 
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
