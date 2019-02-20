@@ -95,6 +95,11 @@ public class Student extends User{
 		this.answers = answers;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Student [ toString()=" + super.toString() + ", quiz=" + quiz.getTitle() + ", questions=" + questions + ", answers=" + answers + ",]";
+	}
 	@Override
 	public String getFinalScore() {
 		return "Your score is: "+String.format("%.2f",this.totalgrade)+"% "

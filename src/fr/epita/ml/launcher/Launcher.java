@@ -24,7 +24,7 @@ public class Launcher extends Application {
 	        stage.show();
 	        
 	    } catch(Exception e) {
-	        Logger.logMessage("ERROR starting GUI");
+	        Logger.logMessage("ERROR starting GUI "+e.getMessage());
 	    }
 
 	}

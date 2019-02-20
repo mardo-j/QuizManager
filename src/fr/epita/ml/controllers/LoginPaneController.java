@@ -96,10 +96,11 @@ public class LoginPaneController{
 
 	@FXML private TextField newQuizNameTextField;
 	@FXML private TextField viewQuizSearchTextField;
+	@FXML private TextField viewStudentSearchTextField;
 
 	@FXML private AnchorPane createQuizQuestionsPane;
 	@FXML private AnchorPane viewQuizScrollPane;
-
+	@FXML private AnchorPane viewUsersScrollPane;
 	@FXML private AnchorPane quizContentPane;
 	@FXML private Pane studentLoginPane;
 	
@@ -113,6 +114,8 @@ public class LoginPaneController{
 	private List<Question> questions;
 	private List<Quiz> quizz;
 	private ListView<Quiz> quizList;
+	private List<Student> students;
+	private ListView<Student> studentsList;
 	private ListView<String> quizListString;
 	private Quiz currentQuiz;
 	private User currentStudent;
@@ -280,6 +283,34 @@ public class LoginPaneController{
 			viewQuizScrollPane.getChildren().clear();
 			viewQuizScrollPane.getChildren().add(quizList);
 		}
+	}
+	@FXML
+	protected void viewQuizExportBtn(){
+		
+	}
+	@FXML
+	protected void viewStudentExportBtn(){
+		
+	}
+	@FXML
+	protected void viewUsersTab(){
+		viewGetUsers("");
+	}
+	@FXML
+	protected void viewStudentSearchBtn(){
+		viewGetUsers(viewStudentSearchTextField.getText());
+	}
+	@FXML
+	protected void viewStudentSearchTextField(){
+		viewGetUsers("");
+	}
+	protected void viewGetUsers(String studentName) {
+		UserJDBCDAO userDAO = new UserJDBCDAO();
+		students = userDAO.search(new Student(studentName));
+		studentsList = new ListView<>(FXCollections.observableArrayList(students));
+		studentsList.setPrefHeight(students.size() * (double)24 + 24);
+		viewUsersScrollPane.getChildren().clear();
+		viewUsersScrollPane.getChildren().add(studentsList);
 	}
 	
 	@FXML

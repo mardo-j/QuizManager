@@ -53,7 +53,7 @@ public class MCQAnswer extends Answer{
 	 */
 	@Override
 	public String toString() {
-		return "MCQAnswer [choices=" + choices + ", questionId=" + questionId + ", student=" + student + "]";
+		return "MCQAnswer [choices=" + choices + "]";
 	}
 
 }

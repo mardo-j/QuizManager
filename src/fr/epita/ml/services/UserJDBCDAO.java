@@ -73,8 +73,8 @@ public class UserJDBCDAO {
 		}
 	}
 
-	public List<User> search(User user) {
-		List<User> resultList = new ArrayList<>();
+	public List<Student> search(User user) {
+		List<Student> resultList = new ArrayList<>();
 		String selectQuery = "select user.id,user.name,student_quiz.quiz_name from USER left join student_quiz on user.name=student_quiz.student_name WHERE user.name like ? order by user.id desc";
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
@@ -88,7 +88,7 @@ public class UserJDBCDAO {
 		return resultList;
 	}
 
-	private void prepareSearchMethod(List<User> resultList, PreparedStatement preparedStatement) {
+	private void prepareSearchMethod(List<Student> resultList, PreparedStatement preparedStatement) {
 		
 		try (ResultSet results = preparedStatement.executeQuery();){
 			while (results.next()) {
@@ -99,17 +99,17 @@ public class UserJDBCDAO {
 		}
 	}
 
-	private void addToResultList(List<User> resultList, ResultSet results) throws SQLException {
+	private void addToResultList(List<Student> resultList, ResultSet results) throws SQLException {
 		User student = new Student(results.getString("name"));
 		student.setId(results.getInt("id"));
 		student.setQuiz(new Quiz(results.getString("quiz_name")));
-		student.setQuestions(getStudentQuestions(student));
-//		student.set
-		resultList.add(student);
-	}
-	private List<Question> getStudentQuestions(User student) {
-		List<Question> resultList = new ArrayList<>();
 		List<Answer> answersList = new ArrayList<>();
+		student.setQuestions(getStudentQuestions(answersList,student));
+		student.setAnswers(answersList);
+		resultList.add((Student)student);
+	}
+	private List<Question> getStudentQuestions(List<Answer> answersList,User student) {
+		List<Question> resultList = new ArrayList<>();
 		String selectQuery = "SELECT QUESTION.LABEL, QUESTION.MCQ,QUESTION.IMAGE, ANSWER, VALID FROM STUDENT_ANSWERS LEFT JOIN QUESTION ON STUDENT_ANSWERS.QUESTION_ID = QUESTION.ID WHERE STUDENT_NAME=?";
 		try (Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
@@ -129,15 +129,13 @@ public class UserJDBCDAO {
 
 		try (ResultSet results = preparedStatement.executeQuery();){
 			while (results.next()) {
-//				addToResultList(resultList, results);
 				Question q=new Question();
 				q.setQuestion(results.getString("label"));
 				q.setImage(results.getString("image"));
+				resultList.add(q);
 				Answer answer;
 				if(results.getInt("mcq")==1) {
-					List<String> answersId=Arrays.asList(results.getString("answer").substring(1,results.getString("answer").length()-1).split(",")).stream().map(String :: trim).collect(Collectors.toList());
-					System.out.println("ANswer: "+results.getString("answer"));
-//					answersId.stream().map(String :: trim).collect(Collectors.toList());
+					List<String> answersId=Arrays.asList(results.getString("answer").substring(1,results.getString("answer").length()-1).split(",")).stream().map(String :: trim).filter(e->Integer.parseInt(e)>0).collect(Collectors.toList());
 					List<MCQChoice> resultList1 = new ArrayList<>();
 					for(String s : answersId) {
 						String selectQuery = "SELECT CHOICE, VALID FROM CHOICES WHERE ID=?";
@@ -151,7 +149,6 @@ public class UserJDBCDAO {
 						} catch (Exception e) {
 							Logger.logMessage("Error searching choices "+e.getMessage());
 						}
-//						return resultList1;
 					}
 					answer = new MCQAnswer();
 					answer.setChoices(resultList1);

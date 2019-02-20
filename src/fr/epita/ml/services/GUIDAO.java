@@ -652,7 +652,7 @@ public class GUIDAO implements ActionListener {
 
 	private void searchingStudentButton(JPanel p4,User user) {
 		UserJDBCDAO dao = new UserJDBCDAO();
-		List<User> users=dao.search(user);
+		List<Student> users=dao.search(user);
 		
 		p4.removeAll();
 		p4.setLayout(new BoxLayout(p4,BoxLayout.Y_AXIS));		
