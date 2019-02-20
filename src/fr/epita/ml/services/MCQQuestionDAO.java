@@ -8,10 +8,18 @@ import java.sql.SQLException;
 
 import fr.epita.logger.Logger;
 import fr.epita.ml.datamodel.MCQQuestion;
-
+/**
+ * MCQQuestionDAO class with methods to query the database
+ * @author Mardo.Lucas
+ *
+ */
 public class MCQQuestionDAO {
 	
-
+	/**
+	 * create method to insert the question into the database
+	 * 
+	 * @param question New question
+	 */
 	public void create(MCQQuestion question) {
 		String sqlCommand = "INSERT INTO QUESTION(label,difficulty,topics,mcq,image) VALUES (?,?,?,?,?)";
 		try (Connection connection = getConnection();
@@ -32,7 +40,11 @@ public class MCQQuestionDAO {
 			Logger.logMessage("Error create MCQQuestion");
 		}
 	}
-
+	/**
+	 * update method to update the question on the database
+	 * 
+	 * @param question New question
+	 */
 	public void update(MCQQuestion question) {
 		if(question.getQuestion().length()==0) {
 			delete(question);
@@ -58,7 +70,11 @@ public class MCQQuestionDAO {
 			}
 		}
 	}
-
+	/**
+	 * delete method to delete the question from the database
+	 * 
+	 * @param question Question to be deleted
+	 */
 	public void delete(MCQQuestion question) {
 		String deleteQuery = "DELETE QUESTION WHERE ID=?";
 		try (Connection connection = getConnection();
@@ -77,7 +93,15 @@ public class MCQQuestionDAO {
 		String password = conf.getConfigurationValue("jdbc.password");
 		return DriverManager.getConnection(jdbcUrl, user, password);
 	}
-
+	/**
+	 * insertChoicesToDB method to insert MCQ choices for a question on the database
+	 * 
+	 * @param question Question to receive the choices
+	 * @param connection Connection parameters to connect to the database
+	 * @param question Question to receive the choices 
+	 * @param insertID ID of the question to receive the choices
+	 * @param i Order of the choice
+	 */
 	private void insertChoicesToDB(MCQQuestion question, Connection connection, int insertID, int i,
 			String sqlCommand) {
 		try (PreparedStatement insertStatement = connection.prepareStatement(sqlCommand);) {
@@ -91,7 +115,12 @@ public class MCQQuestionDAO {
 			Logger.logMessage("Error creating Choices");
 		}
 	}
-
+	/**
+	 * deleteChoicesFromDB method to delete the choices for a question on the database
+	 * 
+	 * @param question Question which choices will be deleted
+	 * @param connection Connection parameters to connect to the database
+	 */
 	private void deleteChoicesFromDB(MCQQuestion question, Connection connection) {
 		try (PreparedStatement statement = connection.prepareStatement("DELETE FROM CHOICES WHERE RELATION=? AND ID>0");) {
 		    statement.setInt(1, question.getId());
@@ -101,7 +130,11 @@ public class MCQQuestionDAO {
 			Logger.logMessage("Error updating MCQQuestion");
 		}
 	}
-	
+	/**
+	 * getLastInsertID method to to get the ID of the last inserted question
+	 * 
+	 * @param connection Connection parameters to connect to the database
+	 */
 	private int getLastInsertID(Connection connection) {
 		int insertID=0;
 		try (PreparedStatement statement = connection.prepareStatement("CALL SCOPE_IDENTITY();");
