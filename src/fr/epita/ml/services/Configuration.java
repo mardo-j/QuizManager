@@ -7,7 +7,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import fr.epita.logger.Logger;
-
+/**
+ * Configuration class with methods to retrieve configuration parameters
+ * @author Mardo.Lucas
+ *
+ */
 public class Configuration {
 
 	private Properties properties;

@@ -65,7 +65,7 @@ public class AnswerDAO {
 
 	}
 	/**
-	 * update method to update the student's open answer into the database
+	 * update method to update the student's open answer on the database
 	 * 
 	 * @param answer User's open answer
 	 */

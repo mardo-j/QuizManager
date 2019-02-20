@@ -26,7 +26,11 @@ import fr.epita.ml.datamodel.Question;
 import fr.epita.ml.datamodel.Quiz;
 import fr.epita.ml.datamodel.User;
 
-
+/**
+ * PDF class with methods to export quizzes and students answers
+ * @author Mardo.Lucas
+ *
+ */
 public class PDF {
 	public void exportQuizPDF(Quiz quiz) {
 		Document document = new Document();

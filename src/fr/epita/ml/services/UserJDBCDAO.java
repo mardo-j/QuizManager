@@ -18,7 +18,11 @@ import fr.epita.ml.datamodel.Question;
 import fr.epita.ml.datamodel.Quiz;
 import fr.epita.ml.datamodel.Student;
 import fr.epita.ml.datamodel.User;
-
+/**
+ * UserJDBCDAO class with methods to query the database
+ * @author Mardo.Lucas
+ *
+ */
 public class UserJDBCDAO {
 	
 

@@ -13,7 +13,11 @@ import java.util.List;
 import fr.epita.logger.Logger;
 import fr.epita.ml.datamodel.Question;
 import fr.epita.ml.datamodel.Quiz;
-
+/**
+ * QuizJDBCDAO class with methods to query the database
+ * @author Mardo.Lucas
+ *
+ */
 public class QuizJDBCDAO {
 
 	public void create(Quiz quiz) {
